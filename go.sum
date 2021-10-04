@@ -1,4 +1,4 @@
-github.com/anoshenko/rui v0.1.0 h1:1sJArgOXsmRXv2E6F50viTwCASbebSR8VYp8O0YTgZs=
-github.com/anoshenko/rui v0.1.0/go.mod h1:UwvQsL4gBsyxopk9o45n3BHi//YLVxXYKdFwdDuXDLU=
+github.com/anoshenko/rui v0.2.0 h1:uWG3g7cg5O5z7scB/q9QOf40qMvJ2ZCtXz/GT/cLT3M=
+github.com/anoshenko/rui v0.2.0/go.mod h1:UwvQsL4gBsyxopk9o45n3BHi//YLVxXYKdFwdDuXDLU=
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=
 github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
