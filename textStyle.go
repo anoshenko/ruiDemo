@@ -10,7 +10,7 @@ GridLayout {
 			width = 100%, height = 100%, cell-vertical-align = center, cell-horizontal-align = center,
 			content = [
 				TextView {
-					id = textStyleText, padding = 16px, max-width = 80%,
+					id = textStyleText, padding = 16px, max-width = 80%, 
 					border = _{ style = solid, width = 1px, color = darkgray },
 					text = "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover."
 				}
@@ -43,6 +43,8 @@ GridLayout {
 						ColorPicker { row = 11, column = 1, id = textStyleLineColor },
 						TextView { row = 12, text = "Shadow" },
 						DropDownList { row = 12, column = 1, id = textStyleShadow, current = 0, items = ["none", "gray, (x, y)=(1px, 1px), blur=0", "blue, (x, y)=(-2px, -2px), blur=1", "green, (x, y)=(0px, 0px), blur=3px"]},
+						TextView { row = 13, text = "User select" },
+						DropDownList { row = 13, column = 1, id = textStyleUserSelect, current = 0, items = ["false", "true"]},
 					]
 				}
 			]
@@ -147,6 +149,19 @@ func createTextStyleDemo(session rui.Session) rui.View {
 		case 3:
 			rui.Set(view, "textStyleText", rui.TextShadow, rui.NewTextShadow(rui.Px(0), rui.Px(0), rui.Px(3), rui.Green))
 		}
+	})
+
+	rui.Set(view, "textStyleUserSelect", rui.DropDownEvent, func(number int) {
+		switch number {
+		case 0:
+			rui.Set(view, "textStyleText", rui.UserSelect, false)
+			rui.Set(view, "textStyleText", rui.Cursor, "default")
+
+		case 1:
+			rui.Set(view, "textStyleText", rui.UserSelect, true)
+			rui.Set(view, "textStyleText", rui.Cursor, "text")
+		}
+
 	})
 
 	return view
