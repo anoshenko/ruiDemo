@@ -162,7 +162,7 @@ func createFilterDemo(session rui.Session) rui.View {
 		})
 	}
 
-	rui.Set(view, "dropShadowColor", rui.ColorChangedEvent, func(value rui.Color) {
+	rui.Set(view, "dropShadowColor", rui.ColorChangedEvent, func(rui.Color) {
 		updateShadow()
 	})
 

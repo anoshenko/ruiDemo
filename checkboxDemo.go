@@ -49,19 +49,19 @@ func createCheckboxDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "checkboxVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "checkboxVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "checkbox", rui.VerticalAlign, number)
 	})
 
-	rui.Set(view, "checkboxHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "checkboxHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "checkbox", rui.HorizontalAlign, number)
 	})
 
-	rui.Set(view, "checkboxBoxVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "checkboxBoxVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "checkbox", rui.CheckboxVerticalAlign, number)
 	})
 
-	rui.Set(view, "checkboxBoxHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "checkboxBoxHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "checkbox", rui.CheckboxHorizontalAlign, number)
 	})
 

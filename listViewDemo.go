@@ -36,7 +36,11 @@ GridLayout {
 						DropDownList { row = 7, column = 1, id = listCheckboxVAlign, current = 0, items = ["top", "bottom", "center"]},
 						TextView { row = 8, text = "Checkbox horizontal align" },
 						DropDownList { row = 8, column = 1, id = listCheckboxHAlign, current = 0, items = ["left", "right", "center"]},
-						Button { row = 9, column = 0:1, id = listSetChecked, content = "set checked 1,4,8" }
+						TextView { row = 9, text = "Row gap" },
+						DropDownList { row = 9, column = 1, id = listRowGap, current = 0, items = ["auto", "12px"]},
+						TextView { row = 10, text = "Column gap" },
+						DropDownList { row = 10, column = 1, id = listColumnGap, current = 0, items = ["auto", "12px"]},
+						Button { row = 11, column = 0:1, id = listSetChecked, content = "set checked 1,4,8" }
 					]
 				}
 			]
@@ -50,11 +54,11 @@ func createListViewDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "listViewOrientation", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listViewOrientation", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.Orientation, number)
 	})
 
-	rui.Set(view, "listWrap", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listWrap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.ListWrap, number)
 	})
 
@@ -64,36 +68,56 @@ func createListViewDemo(session rui.Session) rui.View {
 		}
 	}
 
-	rui.Set(view, "listItemWidth", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listItemWidth", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		setItemSize(rui.ItemWidth, number, []rui.SizeUnit{rui.AutoSize(), rui.Percent(25), rui.Px(200)})
 	})
 
-	rui.Set(view, "listItemHeight", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listItemHeight", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		setItemSize(rui.ItemHeight, number, []rui.SizeUnit{rui.AutoSize(), rui.Percent(25), rui.Px(50)})
 	})
 
-	rui.Set(view, "listItemVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listItemVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.VerticalAlign, number)
 	})
 
-	rui.Set(view, "listItemHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listItemHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.HorizontalAlign, number)
 	})
 
-	rui.Set(view, "listCheckbox", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listCheckbox", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.ItemCheckbox, number)
 	})
 
-	rui.Set(view, "listCheckboxVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listCheckboxVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.CheckboxVerticalAlign, number)
 	})
 
-	rui.Set(view, "listCheckboxHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "listCheckboxHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.CheckboxHorizontalAlign, number)
 	})
 
 	rui.Set(view, "listSetChecked", rui.ClickEvent, func() {
 		rui.Set(view, "listView", rui.Checked, "1, 4, 8")
+	})
+
+	rui.Set(view, "listRowGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		switch number {
+		case 0:
+			rui.Set(view, "listView", rui.ListRowGap, rui.AutoSize())
+
+		case 1:
+			rui.Set(view, "listView", rui.ListRowGap, rui.Px(12))
+		}
+	})
+
+	rui.Set(view, "listColumnGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		switch number {
+		case 0:
+			rui.Set(view, "listView", rui.ListColumnGap, rui.AutoSize())
+
+		case 1:
+			rui.Set(view, "listView", rui.ListColumnGap, rui.Px(12))
+		}
 	})
 
 	return view

@@ -36,7 +36,7 @@ func keyEventHandle(view rui.View, event rui.KeyEvent, tag string) {
 	buffer.WriteString(";\n\n")
 
 	rui.AppendEditText(view, "", buffer.String())
-	rui.ScrollViewToEnd(view, "")
+	rui.ScrollViewToEnd(view)
 }
 
 func createKeyEventsDemo(session rui.Session) rui.View {

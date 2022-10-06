@@ -77,7 +77,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	content := [][]interface{}{
+	content := [][]any{
 		{"Cell content", "Cell value", rui.HorizontalTableJoin{}},
 		{rui.VerticalTableJoin{}, "Type", "Value"},
 		{"Text", "string", "Text"},
@@ -124,7 +124,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	}
 
-	rui.Set(view, "tableSelectionMode", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableSelectionMode", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "demoTableView1", rui.SelectionMode, number)
 		switch rui.GetCurrent(view, "tableSelectionMode") {
 		case rui.CellSelection:
@@ -167,7 +167,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "tableCellGap", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableCellGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		if number == 0 {
 			rui.Set(view, "demoTableView1", rui.Gap, rui.Px(0))
 		} else {
@@ -175,15 +175,15 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "tableBorder", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableBorder", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		setBorder(rui.Border, number)
 	})
 
-	rui.Set(view, "tableCellBorder", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableCellBorder", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		setBorder(rui.CellBorder, number)
 	})
 
-	rui.Set(view, "tableHeadStyle", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableHeadStyle", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 1:
 			rui.Set(view, "demoTableView1", rui.HeadStyle, "tableHead1")
@@ -204,7 +204,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "tableFootStyle", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableFootStyle", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 1:
 			rui.Set(view, "demoTableView1", rui.FootStyle, "tableFoot1")
@@ -225,7 +225,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "tableCellPadding", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableCellPadding", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 1:
 			rui.Set(view, "demoTableView1", rui.CellPadding, rui.Px(4))
@@ -276,7 +276,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "tableVerticalAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tableVerticalAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "demoTableView1", rui.TableVerticalAlign, number)
 	})
 

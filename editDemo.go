@@ -54,15 +54,15 @@ func createEditDemo(session rui.Session) rui.View {
 		}
 	}
 
-	rui.Set(view, "editPassword", rui.EditTextChangedEvent, func(edit rui.EditView, newText string) {
+	rui.Set(view, "editPassword", rui.EditTextChangedEvent, func(_ rui.EditView, newText string) {
 		setConfirmLabel(newText, rui.GetText(view, "editConfirmPassword"))
 	})
 
-	rui.Set(view, "editConfirmPassword", rui.EditTextChangedEvent, func(edit rui.EditView, newText string) {
+	rui.Set(view, "editConfirmPassword", rui.EditTextChangedEvent, func(_ rui.EditView, newText string) {
 		setConfirmLabel(rui.GetText(view, "editPassword"), newText)
 	})
 
-	rui.Set(view, "editMultiLineWrap", rui.CheckboxChangedEvent, func(checkbox rui.Checkbox, checked bool) {
+	rui.Set(view, "editMultiLineWrap", rui.CheckboxChangedEvent, func(_ rui.Checkbox, checked bool) {
 		rui.Set(view, "editMultiLine", rui.EditWrap, checked)
 	})
 

@@ -55,26 +55,26 @@ func createImageViewDemo(session rui.Session) rui.View {
 		rui.Set(view, "imageViewInfo", rui.Text, fmt.Sprintf("Natural size: (%g, %g). Current URL: %s", w, h, imageView.CurrentSource()))
 	})
 
-	rui.Set(view, "imageView1", rui.ErrorEvent, func(imageView rui.ImageView) {
+	rui.Set(view, "imageView1", rui.ErrorEvent, func(_ rui.ImageView) {
 		rui.Set(view, "imageViewInfo", rui.Text, "Image loading error")
 	})
 
-	rui.Set(view, "imageViewImage", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "imageViewImage", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		images := []string{"cat.jpg", "winds.png", "gifsInEmail.gif", "mountain.svg"}
 		if number < len(images) {
 			rui.Set(view, "imageView1", rui.Source, images[number])
 		}
 	})
 
-	rui.Set(view, "imageViewFit", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "imageViewFit", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "imageView1", rui.Fit, number)
 	})
 
-	rui.Set(view, "imageViewHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "imageViewHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "imageView1", rui.ImageHorizontalAlign, number)
 	})
 
-	rui.Set(view, "imageViewVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "imageViewVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "imageView1", rui.ImageVerticalAlign, number)
 	})
 

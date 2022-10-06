@@ -42,7 +42,7 @@ func createTabsDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "tabsTypeList", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "tabsTypeList", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "tabsLayout", rui.Tabs, number)
 	})
 

@@ -67,25 +67,25 @@ func createColumnLayoutDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "columnCount", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "columnCount", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "columnLayout", rui.ColumnCount, number)
 	})
 
-	rui.Set(view, "columnWidth", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "columnWidth", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		items := []rui.SizeUnit{rui.AutoSize(), rui.Px(100), rui.Px(200), rui.Em(40)}
 		if number >= 0 && number < len(items) {
 			rui.Set(view, "columnLayout", rui.ColumnWidth, items[number])
 		}
 	})
 
-	rui.Set(view, "columnGap", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "columnGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		items := []rui.SizeUnit{rui.AutoSize(), rui.Percent(5), rui.Px(8), rui.Em(4)}
 		if number >= 0 && number < len(items) {
 			rui.Set(view, "columnLayout", rui.ColumnGap, items[number])
 		}
 	})
 
-	rui.Set(view, "columnSeparator", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "columnSeparator", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 0:
 			rui.Set(view, "columnLayout", rui.ColumnSeparator, nil)
@@ -122,7 +122,7 @@ func createColumnLayoutDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "columnAvoidBreak", rui.CheckboxChangedEvent, func(checkbox rui.Checkbox, checked bool) {
+	rui.Set(view, "columnAvoidBreak", rui.CheckboxChangedEvent, func(_ rui.Checkbox, checked bool) {
 		if layout := rui.ColumnLayoutByID(view, "columnLayout"); layout != nil {
 			for _, v := range layout.Views() {
 				v.Set(rui.AvoidBreak, checked)

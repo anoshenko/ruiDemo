@@ -340,7 +340,7 @@ func createCanvasDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "canvas", rui.DrawFunction, imageCanvasDemo)
 
-	rui.Set(view, "canvasType", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "canvasType", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		drawFuncs := []func(rui.Canvas){
 			imageCanvasDemo,
 			rectangleCanvasDemo,

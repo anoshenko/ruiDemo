@@ -51,7 +51,7 @@ func createBackgroundDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	updateBackground1 := func(list rui.DropDownList, number int) {
+	updateBackground1 := func(rui.DropDownList, int) {
 		images := []string{"cat.jpg", "winds.png", "gifsInEmail.gif", "mountain.svg"}
 		image := rui.NewBackgroundImage(rui.Params{
 			rui.Source:          images[rui.GetCurrent(view, "backgroundImage1")],

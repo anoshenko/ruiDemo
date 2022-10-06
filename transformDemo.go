@@ -263,97 +263,97 @@ func transformDemo(session rui.Session) rui.View {
 		rui.Set(view, tag, rui.Text, fmt.Sprintf("%g%s", value, unit))
 	}
 
-	rui.Set(view, "PerspectiveEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "PerspectiveEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.Perspective, rui.Px(newValue))
 		updateSliderText("PerspectiveValue", newValue, "px")
 	})
 
-	rui.Set(view, "xPerspectiveOriginEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.PerspectiveOriginX, rui.Px(newValue))
 		updateSliderText("xPerspectiveOriginValue", newValue, "px")
 	})
 
-	rui.Set(view, "yPerspectiveOriginEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "yPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.PerspectiveOriginY, rui.Px(newValue))
 		updateSliderText("yPerspectiveOriginValue", newValue, "px")
 	})
 
-	rui.Set(view, "xOriginEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.OriginX, rui.Px(newValue))
 		updateSliderText("xOriginValue", newValue, "px")
 	})
 
-	rui.Set(view, "yOriginEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "yOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.OriginY, rui.Px(newValue))
 		updateSliderText("yOriginValue", newValue, "px")
 	})
 
-	rui.Set(view, "zOriginEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "zOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.OriginZ, rui.Px(newValue))
 		updateSliderText("zOriginValue", newValue, "px")
 	})
 
-	rui.Set(view, "xTranslateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xTranslateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.TranslateX, rui.Px(newValue))
 		updateSliderText("xTranslateValue", newValue, "px")
 	})
 
-	rui.Set(view, "yTranslateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "yTranslateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.TranslateY, rui.Px(newValue))
 		updateSliderText("yTranslateValue", newValue, "px")
 	})
 
-	rui.Set(view, "zTranslateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "zTranslateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.TranslateZ, rui.Px(newValue))
 		updateSliderText("zTranslateValue", newValue, "px")
 	})
 
-	rui.Set(view, "xScaleEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xScaleEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.ScaleX, newValue)
 		updateSliderText("xScaleValue", newValue, "")
 	})
 
-	rui.Set(view, "yScaleEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "yScaleEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.ScaleY, newValue)
 		updateSliderText("yScaleValue", newValue, "")
 	})
 
-	rui.Set(view, "zScaleEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "zScaleEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.ScaleZ, newValue)
 		updateSliderText("zScaleValue", newValue, "")
 	})
 
-	rui.Set(view, "RotateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "RotateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.Rotate, rui.Deg(newValue))
 		updateSliderText("RotateValue", newValue, "°")
 	})
 
-	rui.Set(view, "xRotateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xRotateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.RotateX, newValue)
 		updateSliderText("xRotateValue", newValue, "")
 	})
 
-	rui.Set(view, "yRotateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "yRotateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.RotateY, newValue)
 		updateSliderText("yRotateValue", newValue, "")
 	})
 
-	rui.Set(view, "zRotateEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "zRotateEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.RotateZ, newValue)
 		updateSliderText("zRotateValue", newValue, "")
 	})
 
-	rui.Set(view, "xSkewEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "xSkewEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.SkewX, rui.Deg(newValue))
 		updateSliderText("xSkewValue", newValue, "°")
 	})
 
-	rui.Set(view, "ySkewEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "ySkewEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		transformView.Set(rui.SkewY, rui.Deg(newValue))
 		updateSliderText("ySkewValue", newValue, "°")
 	})
 
-	rui.Set(view, "backfaceVisibility", rui.CheckboxChangedEvent, func(checkbox rui.Checkbox, checked bool) {
+	rui.Set(view, "backfaceVisibility", rui.CheckboxChangedEvent, func(_ rui.Checkbox, checked bool) {
 		transformView.Set(rui.BackfaceVisible, checked)
 	})
 

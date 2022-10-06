@@ -68,7 +68,7 @@ func (demo *demoSession) OnReconnect(session rui.Session) {
 	rui.DebugLog("Session reconnect")
 }
 
-func createDemo(session rui.Session) rui.SessionContent {
+func createDemo(_ rui.Session) rui.SessionContent {
 	sessionContent := new(demoSession)
 	sessionContent.pages = []demoPage{
 		{"Text style", createTextStyleDemo, nil},
@@ -122,11 +122,18 @@ func (demo *demoSession) clickMenuButton() {
 		items[i] = page.title
 	}
 
+	buttonFrame := rui.ViewByID(demo.rootView, "rootTitleButton").Frame()
+
 	rui.ShowMenu(demo.rootView.Session(), rui.Params{
 		rui.Items:           items,
 		rui.OutsideClose:    true,
 		rui.VerticalAlign:   rui.TopAlign,
 		rui.HorizontalAlign: rui.LeftAlign,
+		rui.MarginLeft:      rui.Px(buttonFrame.Bottom() / 2),
+		rui.Arrow:           rui.LeftArrow,
+		rui.ArrowAlign:      rui.LeftAlign,
+		rui.ArrowSize:       rui.Px(12),
+		rui.ArrowOffset:     rui.Px(buttonFrame.Left + (buttonFrame.Width-12)/2),
 		rui.PopupMenuResult: func(n int) {
 			demo.showPage(n)
 		},
@@ -153,6 +160,14 @@ func (demo *demoSession) showPage(index int) {
 
 func main() {
 	rui.ProtocolInDebugLog = true
+	/*
+		rui.SetDebugLog(func(text string) {
+			if len(text) > 120 {
+				text = text[:120] + "..."
+			}
+			log.Println(text)
+		})
+	*/
 	rui.AddEmbedResources(&resources)
 
 	//addr := rui.GetLocalIP() + ":8080"

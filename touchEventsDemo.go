@@ -104,16 +104,16 @@ func createTouchEventsDemo(session rui.Session) rui.View {
 	}
 
 	rui.SetParams(view, "touchEventsTest", rui.Params{
-		rui.TouchStart: func(v rui.View, event rui.TouchEvent) {
+		rui.TouchStart: func(_ rui.View, event rui.TouchEvent) {
 			addToLog("touch-start", event)
 		},
-		rui.TouchEnd: func(v rui.View, event rui.TouchEvent) {
+		rui.TouchEnd: func(_ rui.View, event rui.TouchEvent) {
 			addToLog("touch-end", event)
 		},
-		rui.TouchCancel: func(v rui.View, event rui.TouchEvent) {
+		rui.TouchCancel: func(_ rui.View, event rui.TouchEvent) {
 			addToLog("touch-cancel", event)
 		},
-		rui.TouchMove: func(v rui.View, event rui.TouchEvent) {
+		rui.TouchMove: func(_ rui.View, event rui.TouchEvent) {
 			addToLog("touch-move", event)
 		},
 	})

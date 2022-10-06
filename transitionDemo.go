@@ -42,7 +42,7 @@ func createTransitionDemo(session rui.Session) rui.View {
 		"bar7": rui.CubicBezierTiming(0.1, -0.6, 0.2, 0),
 	}
 
-	rui.Set(view, "startTransition", rui.ClickEvent, func(button rui.View) {
+	rui.Set(view, "startTransition", rui.ClickEvent, func(_ rui.View) {
 
 		for id, timing := range bars {
 			animation := rui.NewAnimation(rui.Params{
@@ -51,11 +51,11 @@ func createTransitionDemo(session rui.Session) rui.View {
 			})
 
 			if bar := rui.ViewByID(view, id); bar != nil {
-				if rui.GetWidth(bar, "").Value == 100 {
+				if rui.GetWidth(bar).Value == 100 {
 					bar.Remove(rui.TransitionEndEvent)
 					bar.SetAnimated(rui.Width, rui.Percent(20), animation)
 				} else {
-					bar.Set(rui.TransitionEndEvent, func(v rui.View, tag string) {
+					bar.Set(rui.TransitionEndEvent, func(rui.View, string) {
 						bar.Remove(rui.TransitionEndEvent)
 						bar.SetAnimated(rui.Width, rui.Percent(20), animation)
 					})

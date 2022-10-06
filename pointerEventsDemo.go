@@ -102,23 +102,23 @@ func createPointerEventsDemo(session rui.Session) rui.View {
 	}
 
 	rui.SetParams(view, "pointerEventsTest", rui.Params{
-		rui.PointerDown: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerDown: func(_ rui.View, event rui.PointerEvent) {
 			addToLog("pointer-down", event)
 		},
-		rui.PointerUp: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerUp: func(_ rui.View, event rui.PointerEvent) {
 			addToLog("pointer-up", event)
 		},
-		rui.PointerOut: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerOut: func(_ rui.View, event rui.PointerEvent) {
 			addToLog("pointer-out", event)
 			rui.Set(view, "pointerEventsText", rui.Text, "Pointer out")
 		},
-		rui.PointerOver: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerOver: func(_ rui.View, event rui.PointerEvent) {
 			addToLog("pointer-over", event)
 		},
-		rui.PointerCancel: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerCancel: func(_ rui.View, event rui.PointerEvent) {
 			addToLog("pointer-cancel", event)
 		},
-		rui.PointerMove: func(v rui.View, event rui.PointerEvent) {
+		rui.PointerMove: func(_ rui.View, event rui.PointerEvent) {
 			rui.Set(view, "pointerEventsText", rui.Text,
 				fmt.Sprintf("(X:Y): (%g : %g)<br>Client (X:Y): (%g : %g)<br>Screen (X:Y): (%g : %g)",
 					event.X, event.Y, event.ClientX, event.ClientY, event.ScreenX, event.ScreenY))

@@ -71,15 +71,15 @@ func createGridLayoutDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "gridHAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "gridHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "gridLayout", rui.CellHorizontalAlign, number)
 	})
 
-	rui.Set(view, "gridVAlign", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "gridVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "gridLayout", rui.CellVerticalAlign, number)
 	})
 
-	rui.Set(view, "gridColumnGap", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "gridColumnGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 0:
 			rui.Set(view, "gridLayout", rui.GridColumnGap, rui.SizeUnit{Type: rui.Auto, Value: 0})
@@ -89,7 +89,7 @@ func createGridLayoutDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "gridRowGap", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "gridRowGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 0:
 			rui.Set(view, "gridLayout", rui.GridRowGap, rui.SizeUnit{Type: rui.Auto, Value: 0})

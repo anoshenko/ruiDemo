@@ -45,6 +45,8 @@ GridLayout {
 						DropDownList { row = 12, column = 1, id = textStyleShadow, current = 0, items = ["none", "gray, (x, y)=(1px, 1px), blur=0", "blue, (x, y)=(-2px, -2px), blur=1", "green, (x, y)=(0px, 0px), blur=3px"]},
 						TextView { row = 13, text = "User select" },
 						DropDownList { row = 13, column = 1, id = textStyleUserSelect, current = 0, items = ["false", "true"]},
+						TextView { row = 14, text = "Text align" },
+						DropDownList { row = 14, column = 1, id = textStyleAlign, current = 0, items = ["left", "right", "center", "justify"]},
 					]
 				}
 			]
@@ -59,9 +61,9 @@ func createTextStyleDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.SetChangeListener(view, "textStyleFont", rui.Current, func(v rui.View, tag string) {
+	rui.SetChangeListener(view, "textStyleFont", rui.Current, func(v rui.View, _ string) {
 		fonts := []string{"", "serif", "sans-serif", "\"Courier new\", monospace", "cursive", "fantasy"}
-		if number := rui.GetCurrent(v, ""); number > 0 && number < len(fonts) {
+		if number := rui.GetCurrent(v); number > 0 && number < len(fonts) {
 			rui.Set(view, "textStyleText", rui.FontName, fonts[number])
 		} else {
 			rui.Set(view, "textStyleText", rui.FontName, nil)
@@ -162,6 +164,10 @@ func createTextStyleDemo(session rui.Session) rui.View {
 			rui.Set(view, "textStyleText", rui.Cursor, "text")
 		}
 
+	})
+
+	rui.Set(view, "textStyleAlign", rui.DropDownEvent, func(number int) {
+		rui.Set(view, "textStyleText", rui.TextAlign, number)
 	})
 
 	return view

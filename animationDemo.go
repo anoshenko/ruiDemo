@@ -51,7 +51,7 @@ func createAnimationDemo(session rui.Session) rui.View {
 			Tag:  rui.Left,
 			From: rui.Px(16),
 			To:   rui.Px(16),
-			KeyFrames: map[int]interface{}{
+			KeyFrames: map[int]any{
 				25: rui.Px(frame.Width - 48),
 				50: rui.Px(frame.Width - 48),
 				75: rui.Px(16),
@@ -61,7 +61,7 @@ func createAnimationDemo(session rui.Session) rui.View {
 			Tag:  rui.Top,
 			From: rui.Px(16),
 			To:   rui.Px(16),
-			KeyFrames: map[int]interface{}{
+			KeyFrames: map[int]any{
 				25: rui.Px(16),
 				50: rui.Px(frame.Height - 48),
 				75: rui.Px(frame.Height - 48),
@@ -71,7 +71,7 @@ func createAnimationDemo(session rui.Session) rui.View {
 			Tag:  rui.Rotate,
 			From: rui.Deg(0),
 			To:   rui.Deg(360),
-			KeyFrames: map[int]interface{}{
+			KeyFrames: map[int]any{
 				25: rui.Deg(90),
 				50: rui.Deg(180),
 				75: rui.Deg(270),

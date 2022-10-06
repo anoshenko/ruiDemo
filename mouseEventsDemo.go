@@ -87,20 +87,20 @@ func createMouseEventsDemo(session rui.Session) rui.View {
 	}
 
 	rui.SetParams(view, "mouseEventsTest", rui.Params{
-		rui.MouseDown: func(v rui.View, event rui.MouseEvent) {
+		rui.MouseDown: func(_ rui.View, event rui.MouseEvent) {
 			addToLog("mouse-down", event)
 		},
-		rui.MouseUp: func(v rui.View, event rui.MouseEvent) {
+		rui.MouseUp: func(_ rui.View, event rui.MouseEvent) {
 			addToLog("mouse-up", event)
 		},
-		rui.MouseOut: func(v rui.View, event rui.MouseEvent) {
+		rui.MouseOut: func(_ rui.View, event rui.MouseEvent) {
 			addToLog("mouse-out", event)
 			rui.Set(view, "mouseEventsText", rui.Text, "Mouse out")
 		},
-		rui.MouseOver: func(v rui.View, event rui.MouseEvent) {
+		rui.MouseOver: func(_ rui.View, event rui.MouseEvent) {
 			addToLog("mouse-over", event)
 		},
-		rui.MouseMove: func(v rui.View, event rui.MouseEvent) {
+		rui.MouseMove: func(_ rui.View, event rui.MouseEvent) {
 			rui.Set(view, "mouseEventsText", rui.Text,
 				fmt.Sprintf("(X:Y): (%g : %g)<br>Client (X:Y): (%g : %g)<br>Screen (X:Y): (%g : %g)",
 					event.X, event.Y, event.ClientX, event.ClientY, event.ScreenX, event.ScreenY))

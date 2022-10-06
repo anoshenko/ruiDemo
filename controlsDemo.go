@@ -93,7 +93,7 @@ func createControlsDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "controlsCheckbox", rui.CheckboxChangedEvent, func(checkbox rui.Checkbox, checked bool) {
+	rui.Set(view, "controlsCheckbox", rui.CheckboxChangedEvent, func(_ rui.Checkbox, checked bool) {
 		if checked {
 			rui.Set(view, "controlsCheckboxButton", rui.Content, "Uncheck checkbox")
 		} else {
@@ -125,28 +125,28 @@ func createControlsDemo(session rui.Session) rui.View {
 		setProgressBar(+1)
 	})
 
-	rui.Set(view, "controlsNumberEditor", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "controlsNumberEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		rui.Set(view, "controlsNumberSlider", rui.Value, newValue)
 	})
 
-	rui.Set(view, "controlsNumberSlider", rui.NumberChangedEvent, func(v rui.NumberPicker, newValue float64) {
+	rui.Set(view, "controlsNumberSlider", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
 		rui.Set(view, "controlsNumberEditor", rui.Value, newValue)
 	})
 
-	rui.Set(view, "controlsColorPicker", rui.ColorChangedEvent, func(v rui.ColorPicker, newColor rui.Color) {
+	rui.Set(view, "controlsColorPicker", rui.ColorChangedEvent, func(_ rui.ColorPicker, newColor rui.Color) {
 		rui.Set(view, "controlsColorResult", rui.BackgroundColor, newColor)
 	})
 
 	rui.Set(view, "controlsTimePicker", rui.Value, demoTime)
 	rui.Set(view, "controlsDatePicker", rui.Value, demoTime)
 
-	rui.Set(view, "controlsTimePicker", rui.TimeChangedEvent, func(v rui.TimePicker, newDate time.Time) {
+	rui.Set(view, "controlsTimePicker", rui.TimeChangedEvent, func(_ rui.TimePicker, newDate time.Time) {
 		demoTime = time.Date(demoTime.Year(), demoTime.Month(), demoTime.Day(), newDate.Hour(), newDate.Minute(),
 			newDate.Second(), newDate.Nanosecond(), demoTime.Location())
 		rui.Set(view, "controlsDateResult", rui.Text, demoTime.Format(time.RFC1123))
 	})
 
-	rui.Set(view, "controlsDatePicker", rui.DateChangedEvent, func(v rui.DatePicker, newDate time.Time) {
+	rui.Set(view, "controlsDatePicker", rui.DateChangedEvent, func(_ rui.DatePicker, newDate time.Time) {
 		demoTime = time.Date(newDate.Year(), newDate.Month(), newDate.Day(), demoTime.Hour(), demoTime.Minute(),
 			demoTime.Second(), demoTime.Nanosecond(), demoTime.Location())
 		rui.Set(view, "controlsDateResult", rui.Text, demoTime.Format(time.RFC1123))
@@ -156,7 +156,7 @@ func createControlsDemo(session rui.Session) rui.View {
 		rui.ShowMessage("Hello", "Hello world!!!", session)
 	})
 
-	rui.Set(view, "controlsHiddableList", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "controlsHiddableList", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "controlsHiddable", rui.Visibility, number)
 	})
 	return view

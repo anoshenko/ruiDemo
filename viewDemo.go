@@ -54,7 +54,7 @@ func viewDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.Set(view, "viewBorderStyle", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "viewBorderStyle", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		if number < 5 {
 			rui.Set(view, "demoView", rui.BorderStyle, number)
 		} else {
@@ -65,7 +65,7 @@ func viewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "viewBorderWidth", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "viewBorderWidth", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		widths := []rui.SizeUnit{rui.Px(1), rui.Px(2), rui.Px(3.5), rui.Px(5)}
 		if number < len(widths) {
 			rui.Set(view, "demoView", rui.BorderWidth, widths[number])
@@ -78,7 +78,7 @@ func viewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "viewBorderColor", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "viewBorderColor", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		colors := []rui.Color{rui.Black, rui.Blue}
 		if number < len(colors) {
 			rui.Set(view, "demoView", rui.BorderColor, colors[number])
@@ -91,7 +91,7 @@ func viewDemo(session rui.Session) rui.View {
 		}
 	})
 
-	rui.Set(view, "viewRadius", rui.DropDownEvent, func(list rui.DropDownList, number int) {
+	rui.Set(view, "viewRadius", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		switch number {
 		case 0:
 			rui.Set(view, "demoView", rui.Radius, nil)

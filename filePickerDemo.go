@@ -32,7 +32,7 @@ func createFilePickerDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "filePicker", rui.FileSelectedEvent, func(picker rui.FilePicker, files []rui.FileInfo) {
 		if len(files) > 0 {
-			picker.LoadFile(files[0], func(file rui.FileInfo, data []byte) {
+			picker.LoadFile(files[0], func(_ rui.FileInfo, data []byte) {
 				if data != nil {
 					downloadedFile = data
 					downloadedFilename = files[0].Name
