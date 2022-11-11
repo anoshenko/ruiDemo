@@ -21,10 +21,10 @@ GridLayout {
 						Button { row = 3, column = 0:1, id = popView, content = "Pop view" },
 						TextView { row = 4, text = "Animation" },
 						DropDownList { row = 4, column = 1, id = pushAnimation, current = 0, items = ["default", "start-to-end", "end-to-start", "top-down", "bottom-up"]},
-						TextView { row = 5, text = "Timing" },
-						DropDownList { row = 5, column = 1, id = pushTiming, current = 0, items = ["ease", "linear"]},
-						TextView { row = 6, text = "Duration" },
-						DropDownList { row = 6, column = 1, id = pushDuration, current = 0, items = ["0.5s", "1s", "2s"]},
+						//TextView { row = 5, text = "Timing" },
+						//DropDownList { row = 5, column = 1, id = pushTiming, current = 0, items = ["ease", "linear"]},
+						//TextView { row = 6, text = "Duration" },
+						//DropDownList { row = 6, column = 1, id = pushDuration, current = 0, items = ["0.5s", "1s", "2s"]},
 					]
 				}
 			]

@@ -115,7 +115,7 @@ func textCanvasDemo(canvas rui.Canvas) {
 	canvas.StrokeText(300, 90, "serif, 12pt, weight: 7(bold)")
 
 	widthSample := "Text width sample"
-	w := canvas.TextWidth(widthSample, "sans-serif", rui.Px(20))
+	w := canvas.TextMetrics(widthSample, "sans-serif", rui.Px(20), rui.FontParams{}).Width
 	canvas.SetFont("sans-serif", rui.Px(20))
 	canvas.SetSolidColorFillStyle(rui.Blue)
 	canvas.SetTextBaseline(rui.BottomBaseline)

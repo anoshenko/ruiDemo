@@ -1,14 +1,10 @@
 package main
 
 import (
-	"embed"
 	"fmt"
 
 	"github.com/anoshenko/rui"
 )
-
-//go:embed resources
-var resources embed.FS
 
 const rootViewText = `
 GridLayout {
@@ -155,7 +151,6 @@ func (demo *demoSession) showPage(index int) {
 		rui.Set(demo.rootView, "rootTitleText", rui.Text, demo.pages[index].title)
 		demo.rootView.Session().SetTitle(demo.pages[index].title)
 	}
-	// TODO
 }
 
 func main() {

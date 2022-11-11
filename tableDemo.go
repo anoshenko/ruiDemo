@@ -83,7 +83,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		{"Text", "string", "Text"},
 		{"Number", "int", 10},
 		{rui.VerticalTableJoin{}, "float", 10.95},
-		{"Boolean", "true", true},
+		{"Boolean", "\"true\"", true},
 		{rui.VerticalTableJoin{}, "false", false},
 		{"Color", "red", rui.Red},
 		{rui.VerticalTableJoin{}, "green", rui.Green},
