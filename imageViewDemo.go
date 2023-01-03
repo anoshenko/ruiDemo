@@ -11,6 +11,7 @@ GridLayout {
 	style = demoPage,
 	content = [
 		GridLayout {
+			id = imageViewGrid, 
 			cell-height = "auto, 1fr",
 			content = [
 				TextView {
@@ -36,6 +37,11 @@ GridLayout {
 						DropDownList { row = 2, column = 1, id = imageViewHAlign, current = 0, items = ["left", "right", "center"]},
 						TextView { row = 3, text = "Vertical align" },
 						DropDownList { row = 3, column = 1, id = imageViewVAlign, current = 0, items = ["top", "bottom", "center"]},
+						TextView { row = 4, text = "background-color" },
+						ColorPicker { row = 4, column = 1, id = imageViewBackgroundColor, value = white },
+						TextView { row = 5, text = "blend-mode" },
+						DropDownList { row = 5, column = 1, id = imageViewBlendMode, current = 0, items = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"]},
+
 					]
 				}
 			]
@@ -78,6 +84,14 @@ func createImageViewDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "imageViewVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "imageView1", rui.ImageVerticalAlign, number)
+	})
+
+	rui.Set(view, "imageViewBackgroundColor", rui.ColorChangedEvent, func(_ rui.ColorPicker, color rui.Color) {
+		rui.Set(view, "imageViewGrid", rui.BackgroundColor, color)
+	})
+
+	rui.Set(view, "imageViewBlendMode", rui.DropDownEvent, func(_ rui.DropDownList, index int) {
+		rui.Set(view, "imageView1", rui.MixBlendMode, index)
 	})
 
 	return view

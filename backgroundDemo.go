@@ -11,9 +11,9 @@ GridLayout {
 			content = [
 				TextView {
 					id = backgroundView, width = 100%, height = 150%, padding = 16px,
-					text = "Sample text", text-size = 4em, 
+					text = "Sample text", text-size = 4em, background-color = #FFF0F8FF,
 					border = _{ style = dotted, width = 8px, color = #FF008800 },
-					background = image { src = cat.jpg }
+					background = image { src = cat.jpg },
 				}
 			]
 		},		
@@ -37,6 +37,10 @@ GridLayout {
 						DropDownList { row = 5, column = 1, id = backgroundClip1, current = 0, items = ["padding-box", "border-box", "content-box", "text"]},
 						TextView { row = 6, text = "Attachment" },
 						DropDownList { row = 6, column = 1, id = backgroundAttachment1, current = 0, items = ["scroll", "fixed", "local"]},
+						TextView { row = 7, text = "Color" },
+						ColorPicker { row = 7, column = 1, id = backgroundColor1, value = #FFF0F8FF },
+						TextView { row = 8, text = "blend-mode" },
+						DropDownList { row = 8, column = 1, id = backgroundBlendMode1, current = 0, items = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"]},
 					]
 				}
 			]
@@ -76,6 +80,14 @@ func createBackgroundDemo(session rui.Session) rui.View {
 	} {
 		rui.Set(view, id, rui.DropDownEvent, updateBackground1)
 	}
+
+	rui.Set(view, "backgroundColor1", rui.ColorChangedEvent, func(_ rui.ColorPicker, color rui.Color) {
+		rui.Set(view, "backgroundView", rui.BackgroundColor, color)
+	})
+
+	rui.Set(view, "backgroundBlendMode1", rui.DropDownEvent, func(_ rui.DropDownList, index int) {
+		rui.Set(view, "backgroundView", rui.BackgroundBlendMode, index)
+	})
 
 	return view
 }
