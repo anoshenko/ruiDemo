@@ -16,6 +16,7 @@ GridLayout {
 			content = [
 				ImageView { 
 					id = rootTitleButton, padding = 8px, src = menu_icon.svg,
+					tooltip = "Select demo (alt-M)"
 				},
 				TextView { 
 					id = rootTitleText, column = 1, padding-left = 8px, text = "Title",
@@ -108,6 +109,9 @@ func (demo *demoSession) CreateRootView(session rui.Session) rui.View {
 	}
 
 	rui.Set(demo.rootView, "rootTitleButton", rui.ClickEvent, demo.clickMenuButton)
+	session.SetHotKey(rui.KeyM, rui.AltKey, func(session rui.Session) {
+		demo.clickMenuButton()
+	})
 	demo.showPage(0)
 	return demo.rootView
 }
