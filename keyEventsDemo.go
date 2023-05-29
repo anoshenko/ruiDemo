@@ -16,7 +16,7 @@ func keyEventHandle(view rui.View, event rui.KeyEvent, tag string) {
 	buffer.WriteString(`, Key = "`)
 	buffer.WriteString(event.Key)
 	buffer.WriteString(`", Code = "`)
-	buffer.WriteString(event.Code)
+	buffer.WriteString(string(event.Code))
 	buffer.WriteString(`"`)
 
 	appendBool := func(name string, value bool) {
