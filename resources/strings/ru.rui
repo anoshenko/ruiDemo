@@ -30,5 +30,14 @@ strings:ru {
     "Yes" = "Да",
     "No" = "Нет",
     "Cancel" = "Отмена",
-
+	"Required" = "Обязательно",
+	"Optional" = "Опционально",
+	"User name" = "Имя пользователя",
+	"Password" = "Пароль",
+	"8 characters minimum" = "Минимум 8 символов",
+	"Confirm password" = "Повтор пароля",
+	"Main e-mail" = "Основной e-mail",
+	"Additional e-mails" = "Дополнительные e-mail",
+	"Home page" = "Домашняя страница",
+	"Phone" = "Телефон",
 }
