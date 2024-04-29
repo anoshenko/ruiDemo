@@ -177,5 +177,7 @@ func main() {
 		Title:      "RUI demo",
 		Icon:       "icon.svg",
 		TitleColor: rui.Color(0xffc0ded9),
+		NoSocket:   true,
+		//SocketAutoClose: 5,
 	})
 }

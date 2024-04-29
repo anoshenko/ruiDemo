@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"time"
 
 	"github.com/anoshenko/rui"
@@ -70,13 +71,24 @@ ListLayout {
 			border = _{ width = 1px, style = solid, color = #FF000000 }, radius = 4px,
 			content = [
 				View { 
-					id = controlsHiddable, width = 32px, height = 16px, margin-right = 16px, 
+					id = controlsHidden, width = 32px, height = 16px, margin-right = 16px, 
 					background-color = red 
 				},
 				"Visibility",
 				DropDownList { 
-					id = controlsHiddableList, margin-left = 16px, current = 0, 
+					id = controlsHiddenList, margin-left = 16px, current = 0, 
 					items = ["visible", "invisible", "gone"]
+				},
+			],
+		},
+		ListLayout { orientation = horizontal, margin-top = 16px, padding = 8px, vertical-align = center,
+			border = _{ width = 1px, style = solid, color = #FF000000 }, radius = 4px,
+			content = [
+				Button { 
+					id = timerButton, content = "Start timer",
+				},
+				TextView { 
+					id = timerText, margin-left = 16px,
 				},
 			]
 		},
@@ -156,10 +168,40 @@ func createControlsDemo(session rui.Session) rui.View {
 		rui.ShowMessage("Hello", "Hello world!!!", session)
 	})
 
-	rui.Set(view, "controlsHiddableList", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
-		rui.Set(view, "controlsHiddable", rui.Visibility, number)
+	rui.Set(view, "controlsHiddenList", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		rui.Set(view, "controlsHidden", rui.Visibility, number)
 	})
+
+	timer := new(timerData)
+	timer.button = rui.ButtonByID(view, "timerButton")
+	timer.text = rui.TextViewByID(view, "timerText")
+
+	timer.button.Set(rui.ClickEvent, timer.buttonClick)
 	return view
+}
+
+type timerData struct {
+	timerID int
+	counter int
+	button  rui.Button
+	text    rui.TextView
+}
+
+func (timer *timerData) buttonClick(button rui.View) {
+	session := button.Session()
+	if timer.timerID == 0 {
+		timer.timerID = session.StartTimer(1000, timer.timerFunc)
+		timer.button.Set(rui.Content, "Stop timer")
+	} else {
+		session.StopTimer(timer.timerID)
+		timer.timerID = 0
+		timer.button.Set(rui.Content, "Start timer")
+	}
+}
+
+func (timer *timerData) timerFunc(rui.Session) {
+	timer.counter++
+	timer.text.Set(rui.Text, strconv.Itoa(timer.counter))
 }
 
 var demoTime = time.Now()

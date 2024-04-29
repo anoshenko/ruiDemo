@@ -267,7 +267,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 	rui.Set(view, "tableColumnStyle", rui.CheckboxChangedEvent, func(checked bool) {
 		if checked {
 			rui.Set(view, "demoTableView1", rui.ColumnStyle, []rui.Params{
-				{rui.BackgroundColor: 0xffeaece5},
+				{rui.BackgroundColor: 0xffeaece5, rui.TextAlign: rui.CenterAlign},
 				{rui.BackgroundColor: 0xffdaebe8},
 				{rui.BackgroundColor: 0xfff2e394},
 			})

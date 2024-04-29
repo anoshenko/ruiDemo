@@ -28,6 +28,7 @@ GridLayout {
 					border = _{ style = solid, width = 1px, color = #FFA0A0A0 } 
 				},
 				TextView { row = 1, column = 1, 
+					id = centralView,
 					text = "View 4", text-align = center, vertical-align = center, 
 					background-color = #DDFF00FF, radius = 8px, padding = 32px, 
 					border = _{ style = solid, width = 1px, color = #FFA0A0A0 } 
@@ -57,6 +58,15 @@ GridLayout {
 						DropDownList { row = 2, column = 1, id = gridColumnGap, current = 0, items = ["0", "8px"] },
 						TextView { row = 3, text = "Row gap" },
 						DropDownList { row = 3, column = 1, id = gridRowGap, current = 0, items = ["0", "8px"] },
+						TextView { row = 4, text = "Vertical align of central view" },
+						DropDownList { row = 4, column = 1, id = gridSelfVAlign, current = 0,
+							items = ["default", "top", "bottom", "center", "stretch"]
+						},
+						TextView { row = 5, text = "Horizontal align of central view" },
+						DropDownList { row = 5, column = 1, id = gridSelfHAlign, current = 0, 
+							items = ["default", "left", "right", "center", "stretch"]
+						},
+
 					]
 				}
 			]
@@ -77,6 +87,22 @@ func createGridLayoutDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "gridVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "gridLayout", rui.CellVerticalAlign, number)
+	})
+
+	rui.Set(view, "gridSelfHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		if number == 0 {
+			rui.Set(view, "centralView", rui.CellHorizontalSelfAlign, nil)
+		} else {
+			rui.Set(view, "centralView", rui.CellHorizontalSelfAlign, number-1)
+		}
+	})
+
+	rui.Set(view, "gridSelfVAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		if number == 0 {
+			rui.Set(view, "centralView", rui.CellVerticalSelfAlign, nil)
+		} else {
+			rui.Set(view, "centralView", rui.CellVerticalSelfAlign, number-1)
+		}
 	})
 
 	rui.Set(view, "gridColumnGap", rui.DropDownEvent, func(_ rui.DropDownList, number int) {

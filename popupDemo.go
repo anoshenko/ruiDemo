@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/anoshenko/rui"
 )
@@ -33,6 +34,12 @@ GridLayout {
 			},
 			TextView {
 				id = popupShowMenuResult, row = 3, column = 1, 
+			},
+			Button {
+				id = popupShowEditor, row = 4, margin = 4px, content = "Show text editor",
+			},
+			TextView {
+				id = popupShowEditorResult, row = 4, column = 1, 
 			},
 		]
 	}
@@ -80,6 +87,60 @@ func createPopupDemo(session rui.Session) rui.View {
 				rui.Set(view, "popupShowMenuResult", rui.Text, fmt.Sprintf("Item %d selected", n+1))
 			},
 		})
+	})
+
+	rui.Set(view, "popupShowEditor", rui.ClickEvent, func() {
+		popupView := rui.NewGridLayout(session, rui.Params{
+			rui.Padding:    rui.Px(12),
+			rui.CellHeight: []rui.SizeUnit{rui.AutoSize(), rui.AutoSize(), rui.AutoSize(), rui.Fr(1)},
+			rui.Gap:        rui.Px(4),
+			rui.Content: []any{
+				"Title",
+				rui.NewEditView(session, rui.Params{
+					rui.ID:           "titleText",
+					rui.EditViewType: rui.SingleLineText,
+					rui.MaxLength:    80,
+				}),
+				"Text",
+				rui.NewEditView(session, rui.Params{
+					rui.ID:           "content",
+					rui.EditViewType: rui.MultiLineText,
+				}),
+			},
+		})
+
+		popupParams := rui.Params{
+			rui.CloseButton:  true,
+			rui.OutsideClose: false,
+			rui.MinWidth:     rui.Px(300),
+			rui.MinHeight:    rui.Px(300),
+			rui.Resize:       rui.BothResize,
+			rui.Title:        "Enter text",
+			rui.Buttons: []rui.PopupButton{
+				{
+					Title: "Ok",
+					Type:  rui.NormalButton,
+					OnClick: func(popup rui.Popup) {
+						popup.Dismiss()
+						title := rui.GetText(popupView, "titleText")
+						text := strings.ReplaceAll(rui.GetText(popupView, "content"), "\n", "<br>")
+						if title != "" {
+							text = "<h3>" + title + "</h3>" + text
+						}
+						rui.Set(view, "popupShowEditorResult", rui.Text, text)
+					},
+				},
+				{
+					Title: "Cancel",
+					Type:  rui.CancelButton,
+					OnClick: func(popup rui.Popup) {
+						popup.Dismiss()
+					},
+				},
+			},
+		}
+
+		rui.ShowPopup(popupView, popupParams)
 	})
 
 	return view
