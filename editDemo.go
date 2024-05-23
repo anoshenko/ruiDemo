@@ -23,7 +23,7 @@ ListLayout {
 				TextView { row = 4, column = 0, text = "Additional e-mails" },
 				EditView { row = 4, column = 1, id = editAdditionalEmails, min-width = 200px, hint = "Optional", type = emails },
 				TextView { row = 5, column = 0, text = "Home page" },
-				EditView { row = 5, column = 1, id = editHomePage, min-width = 200px, hint = "Optional", type = url },
+				EditView { row = 5, column = 1, id = editHomePage, min-width = 200px, hint = "Optional", type = url, data-list = ["https://example.com", "https://example.net", "https://example.org"] },
 				TextView { row = 6, column = 0, text = "Phone" },
 				EditView { row = 6, column = 1, id = editPhone, min-width = 200px, hint = "Optional", type = phone },
 				EditView { row = 7, column = 0:1, id = editMultiLine, height = 200px, type = multiline },

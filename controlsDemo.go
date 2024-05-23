@@ -39,10 +39,12 @@ ListLayout {
 			content = [
 				"Enter number (-5...10)",
 				NumberPicker { id = controlsNumberEditor, type = editor, width = 80px, 
-					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0 
+					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0,
+					data-list = [-2, 0, 2.5, 5] 
 				},
 				NumberPicker { id = controlsNumberSlider, type = slider, width = 150px, 
-					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0 
+					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0,
+					data-list = [-5, 0, 5, 10]  
 				}
 			]
 		},
@@ -51,7 +53,8 @@ ListLayout {
 			content = [
 				"Select color",
 				ColorPicker { id = controlsColorPicker, value = #0000FF,
-					margin = _{ left = 12px, right = 24px} 
+					margin = _{ left = 12px, right = 24px},
+					data-list = [ #FF00FF00, yellow, black ]
 				},
 				"Result",
 				View { id = controlsColorResult, width = 24px, height = 24px, margin-left = 12px, background-color = #0000FF }
@@ -61,8 +64,12 @@ ListLayout {
 			border = _{ width = 1px, style = solid, color = #FF000000 }, radius = 4px,
 			content = [
 				"Select a time and date:",
-				TimePicker { id = controlsTimePicker, min = "00:00", margin-left = 12px },
-				DatePicker { id = controlsDatePicker, min = "2001-01-01", margin-right = 24px },
+				TimePicker { id = controlsTimePicker, min = "00:00", margin-left = 12px,
+					data-list = [ "9:30", "12:00", "15:45" ] 
+				},
+				DatePicker { id = controlsDatePicker, min = "2001-01-01", margin-right = 24px,
+					data-list = [ "2010-07-15", "2015-04-21" ] 
+				},
 				"Result:",
 				TextView { id = controlsDateResult, margin-left = 12px }
 			]
