@@ -1,6 +1,6 @@
-github.com/anoshenko/rui v0.14.0 h1:jH7utDAJOFB75e1oWIc1G8FFsshXpDlCWydB0rT21nQ=
-github.com/anoshenko/rui v0.14.0/go.mod h1:law4x9Ha6wARYrtZJS6AhDiIzYhhVxJ4V3zOVJyfT3c=
+github.com/anoshenko/rui v0.16.0 h1:DBSNnXdh0Obz/sog/0/vzTni2LTg7PXE02xxAqjhmdI=
+github.com/anoshenko/rui v0.16.0/go.mod h1:law4x9Ha6wARYrtZJS6AhDiIzYhhVxJ4V3zOVJyfT3c=
 github.com/gorilla/websocket v1.5.1 h1:gmztn0JnHVt9JZquRuzLw3g4wouNVzKL15iLr/zn/QY=
 github.com/gorilla/websocket v1.5.1/go.mod h1:x3kM2JMyaluk02fnUJpQuwD2dCS5NDG2ZHL0uE0tcaY=
-golang.org/x/net v0.24.0 h1:1PcaxkF854Fu3+lvBIx5SYn9wRlBzzcnHZSiaFFAb0w=
-golang.org/x/net v0.24.0/go.mod h1:2Q7sJY5mzlzWjKtYUEXSlBWCdyaioyXzRB2RtU8KVE8=
+golang.org/x/net v0.26.0 h1:soB7SVo0PWrY4vPW/+ay0jKDNScG2X9wFeYlXIvJsOQ=
+golang.org/x/net v0.26.0/go.mod h1:5YKkiSynbBIh3p6iOc/vibscux0x38BZDkn8sCUPxHE=

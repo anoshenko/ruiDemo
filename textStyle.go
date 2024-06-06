@@ -47,6 +47,8 @@ GridLayout {
 						DropDownList { row = 13, column = 1, id = textStyleUserSelect, current = 0, items = ["false", "true"]},
 						TextView { row = 14, text = "Text align" },
 						DropDownList { row = 14, column = 1, id = textStyleAlign, current = 0, items = ["left", "right", "center", "justify"]},
+						TextView { row = 15, text = "Text wrap" },
+						DropDownList { row = 15, column = 1, id = textStyleWrap, current = 0, items = ["wrap", "nowrap", "balance"]},
 					]
 				}
 			]
@@ -168,6 +170,10 @@ func createTextStyleDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "textStyleAlign", rui.DropDownEvent, func(number int) {
 		rui.Set(view, "textStyleText", rui.TextAlign, number)
+	})
+
+	rui.Set(view, "textStyleWrap", rui.DropDownEvent, func(number int) {
+		rui.Set(view, "textStyleText", rui.TextWrap, number)
 	})
 
 	return view

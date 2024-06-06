@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/anoshenko/rui"
 )
 
@@ -10,7 +12,7 @@ GridLayout {
 	content = [
 		ListView {
 			id = listView, width = 100%, height = 100%, orientation = vertical,
-			items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12", "Item 13", "Item 14", "Item 15", "Item 16", "Item 17", "Item 18"]
+			//items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12", "Item 13", "Item 14", "Item 15", "Item 16", "Item 17", "Item 18"]
 		},
 		ListLayout {
 			style = optionsPanel,
@@ -48,11 +50,36 @@ GridLayout {
 	]
 }`
 
+type listViewDemoAdapter struct {
+}
+
+func (adapter *listViewDemoAdapter) ListSize() int {
+	return 20
+}
+
+func (adapter *listViewDemoAdapter) ListItem(index int, session rui.Session) rui.View {
+	if !adapter.IsListItemEnabled(index) {
+		return rui.NewTextView(session, rui.Params{
+			rui.Text:      fmt.Sprintf("Disabled item %d", index+1),
+			rui.TextColor: "@ruiDisabledTextColor",
+		})
+	}
+	return rui.NewTextView(session, rui.Params{
+		rui.Text: fmt.Sprintf("Item %d", index+1),
+	})
+}
+
+func (adapter *listViewDemoAdapter) IsListItemEnabled(index int) bool {
+	return index != 3
+}
+
 func createListViewDemo(session rui.Session) rui.View {
 	view := rui.CreateViewFromText(session, listViewDemoText)
 	if view == nil {
 		return nil
 	}
+
+	rui.Set(view, "listView", rui.Items, new(listViewDemoAdapter))
 
 	rui.Set(view, "listViewOrientation", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "listView", rui.Orientation, number)
