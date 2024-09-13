@@ -42,7 +42,9 @@ GridLayout {
 						DropDownList { row = 9, column = 1, id = listRowGap, current = 0, items = ["auto", "12px"]},
 						TextView { row = 10, text = "Column gap" },
 						DropDownList { row = 10, column = 1, id = listColumnGap, current = 0, items = ["auto", "12px"]},
-						Button { row = 11, column = 0:1, id = listSetChecked, content = "set checked 1,4,8" }
+						TextView { row = 11, text = "Accent color" },
+						ColorPicker { row = 11, column = 1, id = listAccentColor, color-picker-value = @ruiHighlightColor },
+						Button { row = 12, column = 0:1, id = listSetChecked, content = "set checked 1,4,8" }
 					]
 				}
 			]
@@ -145,6 +147,10 @@ func createListViewDemo(session rui.Session) rui.View {
 		case 1:
 			rui.Set(view, "listView", rui.ListColumnGap, rui.Px(12))
 		}
+	})
+
+	rui.Set(view, "listAccentColor", rui.ColorChangedEvent, func(_ rui.ColorPicker, color rui.Color) {
+		rui.Set(view, "listView", rui.AccentColor, color)
 	})
 
 	return view

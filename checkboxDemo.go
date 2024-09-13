@@ -35,6 +35,8 @@ GridLayout {
 						DropDownList { row = 2, column = 1, id = checkboxBoxVAlign, current = 0, items = ["top", "bottom", "center"]},
 						TextView { row = 3, text = "Checkbox horizontal align" },
 						DropDownList { row = 3, column = 1, id = checkboxBoxHAlign, current = 0, items = ["left", "right", "center"]},
+						TextView { row = 4, text = "Accent color" },
+						ColorPicker { row = 4, column = 1, id = checkboxAccentColor, color-picker-value = @ruiHighlightColor },
 					]
 				}
 			]
@@ -63,6 +65,10 @@ func createCheckboxDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "checkboxBoxHAlign", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
 		rui.Set(view, "checkbox", rui.CheckboxHorizontalAlign, number)
+	})
+
+	rui.Set(view, "checkboxAccentColor", rui.ColorChangedEvent, func(_ rui.ColorPicker, color rui.Color) {
+		rui.Set(view, "checkbox", rui.AccentColor, color)
 	})
 
 	return view

@@ -25,6 +25,21 @@ ListLayout {
 				Button { id = controlsCheckboxButton, margin-left = 32px, content = "Check checkbox" },
 			]
 		},
+		ListLayout { orientation = horizontal, margin-top = 16px, vertical-align = center,
+			border = _{ width = 1px, style = solid, color = #FF000000 }, radius = 4px,
+			content = [
+				DropDownList { 
+					id = controlsDropDownList, current = 0, margin = 16px,
+					items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"],
+					disabled-items = [2, 4],
+					item-separators = [1, 3],
+				},
+				"Selected: "
+				TextView {
+					id = controlsDropDownSelected, text = "Item 1", margin-left = 8px, 
+				},
+			]
+		},
 		ListLayout { orientation = horizontal, margin-top = 16px, padding = 8px, vertical-align = center,
 			border = _{ width = 1px, style = solid, color = #FF000000 }, radius = 4px,
 			content = [
@@ -123,6 +138,10 @@ func createControlsDemo(session rui.Session) rui.View {
 	rui.Set(view, "controlsCheckboxButton", rui.ClickEvent, func(rui.View) {
 		checked := rui.IsCheckboxChecked(view, "controlsCheckbox")
 		rui.Set(view, "controlsCheckbox", rui.Checked, !checked)
+	})
+
+	rui.Set(view, "controlsDropDownList", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
+		rui.Set(view, "controlsDropDownSelected", rui.Text, fmt.Sprintf("Item %d", number+1))
 	})
 
 	setProgressBar := func(dx float64) {

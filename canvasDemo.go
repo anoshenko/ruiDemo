@@ -214,7 +214,7 @@ func lineStyleCanvasDemo(canvas rui.Canvas) {
 	canvas.SetFont("courier", rui.Pt(10))
 	for i, join := range []string{"MiterJoin", "RoundJoin", "BevelJoin"} {
 		y := float64(140 + 40*i)
-		path := rui.NewPath()
+		path := canvas.NewPath()
 		path.MoveTo(20, y)
 		path.LineTo(50, y+40)
 		path.LineTo(80, y)
