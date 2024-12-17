@@ -93,14 +93,14 @@ func createColumnLayoutDemo(session rui.Session) rui.View {
 
 		case 1:
 			rui.Set(view, "columnLayout", rui.ColumnSeparator,
-				rui.NewColumnSeparator(rui.Params{
+				rui.NewColumnSeparatorProperty(rui.Params{
 					rui.Width: rui.Px(1),
 					rui.Style: rui.SolidLine,
 				}))
 
 		case 2:
 			rui.Set(view, "columnLayout", rui.ColumnSeparator,
-				rui.NewColumnSeparator(rui.Params{
+				rui.NewColumnSeparatorProperty(rui.Params{
 					rui.Width:    rui.Px(2),
 					rui.Style:    rui.DottedLine,
 					rui.ColorTag: rui.Red,
@@ -108,7 +108,7 @@ func createColumnLayoutDemo(session rui.Session) rui.View {
 
 		case 3:
 			rui.Set(view, "columnLayout", rui.ColumnSeparator,
-				rui.NewColumnSeparator(rui.Params{
+				rui.NewColumnSeparatorProperty(rui.Params{
 					rui.Width:    rui.Px(3),
 					rui.Style:    rui.DashedLine,
 					rui.ColorTag: rui.Blue,
@@ -116,7 +116,7 @@ func createColumnLayoutDemo(session rui.Session) rui.View {
 
 		case 4:
 			rui.Set(view, "columnLayout", rui.ColumnSeparator,
-				rui.NewColumnSeparator(rui.Params{
+				rui.NewColumnSeparatorProperty(rui.Params{
 					rui.Width: rui.Px(4),
 					rui.Style: rui.DoubleLine,
 				}))

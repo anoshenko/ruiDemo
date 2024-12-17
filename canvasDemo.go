@@ -9,6 +9,7 @@ import (
 
 const canvasDemoText = `
 GridLayout {
+	id = canvasDemoPage,
 	width = 100%, height = 100%, cell-height = "auto, 1fr",
 	content = [
 		DropDownList {
@@ -59,9 +60,18 @@ func rectangleCanvasDemo(canvas rui.Canvas) {
 	canvas.SetLineWidth(7)
 	canvas.FillAndStrokeRect(10, h2+10, w2-20, h2-20)
 
+	canvas.SetConicGradientFillStyle(w2+w2/2, h2+h2/2, 0, 0xFFFF0000, 0xFF0000FF, []rui.GradientPoint{
+		{Offset: 0.3, Color: 0xFFFFFF00},
+		{Offset: 0.5, Color: 0xFF00FF00},
+		{Offset: 0.7, Color: 0xFF00FFFF},
+	})
+	canvas.SetConicGradientStrokeStyle(w2+w2/2, h2+h2/2, 0, 0xFFFFFF00, 0xFF00FFFF, []rui.GradientPoint{
+		{Offset: 0.5, Color: 0xFF00FF00},
+	})
+
 	//canvas.SetSolidColorFillStyle(0xFF00FFFF)
-	canvas.SetImageFillStyle(sampleImage, rui.RepeatXY)
-	canvas.SetSolidColorStrokeStyle(0xFF0000FF)
+	//canvas.SetImageFillStyle(sampleImage, rui.RepeatXY)
+	//canvas.SetSolidColorStrokeStyle(0xFF0000FF)
 	canvas.SetLineWidth(4)
 	canvas.FillAndStrokeEllipse(w2+w2/2, h2+h2/2, w2/2-10, h2/2-10, 0)
 
@@ -193,7 +203,7 @@ func lineStyleCanvasDemo(canvas rui.Canvas) {
 		}
 
 		canvas.SetLineWidth(10)
-		canvas.SetLineCap(i)
+		canvas.SetLineCap(rui.LineCap(i))
 		canvas.DrawLine(20, y, 170, y)
 		canvas.FillText(200, y, cap)
 	}
@@ -222,7 +232,7 @@ func lineStyleCanvasDemo(canvas rui.Canvas) {
 		path.LineTo(140, y)
 		path.LineTo(170, y+40)
 		path.LineTo(200, y)
-		canvas.SetLineJoin(i)
+		canvas.SetLineJoin(rui.LineJoin(i))
 		canvas.StrokePath(path)
 		canvas.FillText(210, y+20, join)
 	}

@@ -63,7 +63,7 @@ func createTextStyleDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	rui.SetChangeListener(view, "textStyleFont", rui.Current, func(v rui.View, _ string) {
+	rui.SetChangeListener(view, "textStyleFont", rui.Current, func(v rui.View, _ rui.PropertyName) {
 		fonts := []string{"", "serif", "sans-serif", "\"Courier new\", monospace", "cursive", "fantasy"}
 		if number := rui.GetCurrent(v); number > 0 && number < len(fonts) {
 			rui.Set(view, "textStyleText", rui.FontName, fonts[number])

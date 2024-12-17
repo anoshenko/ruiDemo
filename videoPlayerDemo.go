@@ -58,15 +58,15 @@ func createVideoPlayerDemo(session rui.Session) rui.View {
 		return nil
 	}
 
-	createListener := func(event string) func() {
+	createListener := func(event rui.PropertyName) func() {
 		return func() {
-			rui.AppendEditText(view, "videoPlayerEventsLog", event+"\n")
+			rui.AppendEditText(view, "videoPlayerEventsLog", string(event)+"\n")
 			rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
 		}
 	}
-	createListener2 := func(event string) func(value float64) {
+	createListener2 := func(event rui.PropertyName) func(value float64) {
 		return func(value float64) {
-			rui.AppendEditText(view, "videoPlayerEventsLog", fmt.Sprintf("%s: %g\n", event, value))
+			rui.AppendEditText(view, "videoPlayerEventsLog", fmt.Sprintf("%s: %g\n", string(event), value))
 			rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
 		}
 	}
@@ -88,7 +88,7 @@ func createVideoPlayerDemo(session rui.Session) rui.View {
 		rui.Set(view, "videoPlayer", rui.Muted, state)
 	})
 
-	for _, event := range []string{rui.AbortEvent, rui.CanPlayEvent, rui.CanPlayThroughEvent,
+	for _, event := range []rui.PropertyName{rui.AbortEvent, rui.CanPlayEvent, rui.CanPlayThroughEvent,
 		rui.CompleteEvent, rui.EmptiedEvent, rui.EndedEvent, rui.LoadStartEvent,
 		rui.LoadedMetadataEvent, rui.PlayingEvent, rui.SeekedEvent, rui.SeekingEvent,
 		rui.StalledEvent, rui.SuspendEvent, rui.WaitingEvent} {
@@ -96,7 +96,7 @@ func createVideoPlayerDemo(session rui.Session) rui.View {
 		rui.Set(view, "videoPlayer", event, createListener(event))
 	}
 
-	for _, event := range []string{rui.DurationChangedEvent, rui.RateChangedEvent, rui.VolumeChangedEvent} {
+	for _, event := range []rui.PropertyName{rui.DurationChangedEvent, rui.RateChangedEvent, rui.VolumeChangedEvent} {
 
 		rui.Set(view, "videoPlayer", event, createListener2(event))
 	}

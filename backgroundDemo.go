@@ -11,8 +11,8 @@ GridLayout {
 			content = [
 				TextView {
 					id = backgroundView, width = 100%, height = 150%, padding = 16px,
-					text = "Sample text", text-size = 4em, background-color = #FFF0F8FF,
-					border = _{ style = dotted, width = 8px, color = #FF008800 },
+					text = "Sample text", text-size = 4em, background-color = red,
+					border = _{ style = dotted, width = 8px, color = blue },
 					background = image { src = cat.jpg },
 				}
 			]
@@ -34,13 +34,15 @@ GridLayout {
 						TextView { row = 4, text = "Repeat" },
 						DropDownList { row = 4, column = 1, id = backgroundRepeat1, current = 0, items = ["no-repeat", "repeat", "repeat-x", "repeat-y", "round", "space"]},
 						TextView { row = 5, text = "Clip" },
-						DropDownList { row = 5, column = 1, id = backgroundClip1, current = 0, items = ["padding-box", "border-box", "content-box", "text"]},
-						TextView { row = 6, text = "Attachment" },
-						DropDownList { row = 6, column = 1, id = backgroundAttachment1, current = 0, items = ["scroll", "fixed", "local"]},
-						TextView { row = 7, text = "Color" },
-						ColorPicker { row = 7, column = 1, id = backgroundColor1, value = #FFF0F8FF },
-						TextView { row = 8, text = "blend-mode" },
-						DropDownList { row = 8, column = 1, id = backgroundBlendMode1, current = 0, items = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"]},
+						DropDownList { row = 5, column = 1, id = backgroundClip1, current = 0, items = ["border-box", "padding-box", "content-box", "text"]},
+						TextView { row = 6, text = "background-origin" },
+						DropDownList { row = 6, column = 1, id = backgroundOrigin1, current = 1, items = ["border-box", "padding-box", "content-box"]},
+						TextView { row = 7, text = "Attachment" },
+						DropDownList { row = 7, column = 1, id = backgroundAttachment1, current = 0, items = ["scroll", "fixed", "local"]},
+						TextView { row = 8, text = "Color" },
+						ColorPicker { row = 8, column = 1, id = backgroundColor1, value = #FFF0F8FF },
+						TextView { row = 9, text = "blend-mode" },
+						DropDownList { row = 9, column = 1, id = backgroundBlendMode1, current = 0, items = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"]},
 					]
 				}
 			]
@@ -63,7 +65,6 @@ func createBackgroundDemo(session rui.Session) rui.View {
 			rui.HorizontalAlign: rui.GetCurrent(view, "backgroundHAlign1"),
 			rui.VerticalAlign:   rui.GetCurrent(view, "backgroundVAlign1"),
 			rui.Repeat:          rui.GetCurrent(view, "backgroundRepeat1"),
-			rui.BackgroundClip:  rui.GetCurrent(view, "backgroundClip1"),
 			rui.Attachment:      rui.GetCurrent(view, "backgroundAttachment1"),
 		})
 		rui.Set(view, "backgroundView", rui.Background, image)
@@ -75,11 +76,18 @@ func createBackgroundDemo(session rui.Session) rui.View {
 		"backgroundHAlign1",
 		"backgroundVAlign1",
 		"backgroundRepeat1",
-		"backgroundClip1",
 		"backgroundAttachment1",
 	} {
 		rui.Set(view, id, rui.DropDownEvent, updateBackground1)
 	}
+
+	rui.Set(view, "backgroundClip1", rui.DropDownEvent, func(index int) {
+		rui.Set(view, "backgroundView", rui.BackgroundClip, index)
+	})
+
+	rui.Set(view, "backgroundOrigin1", rui.DropDownEvent, func(index int) {
+		rui.Set(view, "backgroundView", rui.BackgroundOrigin, index)
+	})
 
 	rui.Set(view, "backgroundColor1", rui.ColorChangedEvent, func(_ rui.ColorPicker, color rui.Color) {
 		rui.Set(view, "backgroundView", rui.BackgroundColor, color)

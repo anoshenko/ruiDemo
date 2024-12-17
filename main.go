@@ -24,7 +24,7 @@ GridLayout {
 			],
 		},
 		StackLayout {
-			id = rootViews, row = 1,
+			id = rootViews, row = 1, move-to-front-animation = false,
 		}
 	]
 }
@@ -71,6 +71,7 @@ func createDemo(_ rui.Session) rui.SessionContent {
 		{"Text style", createTextStyleDemo, nil},
 		{"View border", viewDemo, nil},
 		{"Background image", createBackgroundDemo, nil},
+		{"Mask image", createMaskDemo, nil},
 		{"ListLayout", createListLayoutDemo, nil},
 		{"GridLayout", createGridLayoutDemo, nil},
 		{"ColumnLayout", createColumnLayoutDemo, nil},
@@ -151,6 +152,9 @@ func (demo *demoSession) showPage(index int) {
 			stackLayout.Append(demo.pages[index].view)
 		} else {
 			stackLayout.MoveToFront(demo.pages[index].view)
+			if view := rui.CanvasViewByID(demo.pages[index].view, "canvasDemoPage", "canvas"); view != nil {
+				view.Redraw()
+			}
 		}
 		rui.Set(demo.rootView, "rootTitleText", rui.Text, demo.pages[index].title)
 		demo.rootView.Session().SetTitle(demo.pages[index].title)
@@ -177,7 +181,7 @@ func main() {
 		Title:      "RUI demo",
 		Icon:       "icon.svg",
 		TitleColor: rui.Color(0xffc0ded9),
-		NoSocket:   true,
+		//NoSocket:   true,
 		//SocketAutoClose: 5,
 	})
 }

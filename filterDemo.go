@@ -79,28 +79,28 @@ func createFilterDemo(session rui.Session) rui.View {
 			slider := tag + "Slider"
 			rui.Set(view, slider, rui.Disabled, !state)
 			if state {
-				filterParams[tag] = rui.GetNumberPickerValue(view, slider)
+				filterParams[rui.PropertyName(tag)] = rui.GetNumberPickerValue(view, slider)
 			} else {
-				delete(filterParams, tag)
+				delete(filterParams, rui.PropertyName(tag))
 			}
-			rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+			rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 		})
 
 		rui.Set(view, tag+"Slider", rui.NumberChangedEvent, func(value float64) {
 			var text string
-			if tag == rui.Blur {
+			if tag == string(rui.Blur) {
 				text = fmt.Sprintf("%.2gpx", value)
 			} else {
 				text = fmt.Sprintf("%g%%", value)
 			}
 			rui.Set(view, tag+"Value", rui.Text, text)
-			filterParams[tag] = value
-			rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+			filterParams[rui.PropertyName(tag)] = value
+			rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 		})
 	}
 
-	for _, tag := range []string{rui.Blur, rui.Brightness, rui.Contrast, rui.Grayscale, rui.Invert, rui.Saturate, rui.Sepia, rui.Opacity} {
-		setEvents(tag)
+	for _, tag := range []rui.PropertyName{rui.Blur, rui.Brightness, rui.Contrast, rui.Grayscale, rui.Invert, rui.Saturate, rui.Sepia, rui.Opacity} {
+		setEvents(string(tag))
 	}
 
 	rui.Set(view, "huerotateCheckbox", rui.CheckboxChangedEvent, func(state bool) {
@@ -113,13 +113,13 @@ func createFilterDemo(session rui.Session) rui.View {
 		} else {
 			delete(filterParams, rui.HueRotate)
 		}
-		rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+		rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 	})
 
 	rui.Set(view, "huerotateSlider", rui.NumberChangedEvent, func(value float64) {
 		rui.Set(view, "huerotateValue", rui.Text, fmt.Sprintf("%g°", value))
 		filterParams[rui.HueRotate] = rui.AngleUnit{Type: rui.Degree, Value: value}
-		rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+		rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 	})
 
 	updateShadow := func() {
@@ -138,7 +138,7 @@ func createFilterDemo(session rui.Session) rui.View {
 		color := rui.GetColorPickerValue(view, "dropShadowColor")
 
 		filterParams[rui.DropShadow] = rui.NewTextShadow(xOff, yOff, blur, color)
-		rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+		rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 	}
 
 	rui.Set(view, "shadowCheckbox", rui.CheckboxChangedEvent, func(state bool) {
@@ -149,7 +149,7 @@ func createFilterDemo(session rui.Session) rui.View {
 			updateShadow()
 		} else {
 			delete(filterParams, rui.DropShadow)
-			rui.Set(view, "filterImage", rui.Filter, rui.NewViewFilter(filterParams))
+			rui.Set(view, "filterImage", rui.Filter, rui.NewFilterProperty(filterParams))
 		}
 	})
 

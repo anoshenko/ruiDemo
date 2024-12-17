@@ -45,7 +45,7 @@ func createTransitionDemo(session rui.Session) rui.View {
 	rui.Set(view, "startTransition", rui.ClickEvent, func(_ rui.View) {
 
 		for id, timing := range bars {
-			animation := rui.NewAnimation(rui.Params{
+			animation := rui.NewAnimationProperty(rui.Params{
 				rui.Duration:       2,
 				rui.TimingFunction: timing,
 			})
@@ -55,7 +55,7 @@ func createTransitionDemo(session rui.Session) rui.View {
 					bar.Remove(rui.TransitionEndEvent)
 					bar.SetAnimated(rui.Width, rui.Percent(20), animation)
 				} else {
-					bar.Set(rui.TransitionEndEvent, func(rui.View, string) {
+					bar.Set(rui.TransitionEndEvent, func(rui.View, rui.PropertyName) {
 						bar.Remove(rui.TransitionEndEvent)
 						bar.SetAnimated(rui.Width, rui.Percent(20), animation)
 					})

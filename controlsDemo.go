@@ -15,7 +15,8 @@ ListLayout {
 	content = [
 		DetailsView {
 			margin = 8px,
-			summary = "Details title",
+			summary = TextView { text = "Details title", background-color = #FFEEEEEE, padding = 4px },
+			hide-summary-marker = true,
 			content = "Details content"
 		}
 		ListLayout { orientation = horizontal, vertical-align = center, padding = 8px,
@@ -54,11 +55,11 @@ ListLayout {
 			content = [
 				"Enter number (-5...10)",
 				NumberPicker { id = controlsNumberEditor, type = editor, width = 80px, 
-					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0,
+					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0, precision = 1,
 					data-list = [-2, 0, 2.5, 5] 
 				},
 				NumberPicker { id = controlsNumberSlider, type = slider, width = 150px, 
-					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0,
+					margin-left = 12px, min = -5, max = 10, step = 0.1, value = 0, precision = 1,
 					data-list = [-5, 0, 5, 10]  
 				}
 			]

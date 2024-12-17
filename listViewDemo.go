@@ -62,12 +62,14 @@ func (adapter *listViewDemoAdapter) ListSize() int {
 func (adapter *listViewDemoAdapter) ListItem(index int, session rui.Session) rui.View {
 	if !adapter.IsListItemEnabled(index) {
 		return rui.NewTextView(session, rui.Params{
-			rui.Text:      fmt.Sprintf("Disabled item %d", index+1),
-			rui.TextColor: "@ruiDisabledTextColor",
+			rui.Text:         fmt.Sprintf("Disabled item %d", index+1),
+			rui.TextColor:    "@ruiDisabledTextColor",
+			rui.NotTranslate: true,
 		})
 	}
 	return rui.NewTextView(session, rui.Params{
-		rui.Text: fmt.Sprintf("Item %d", index+1),
+		rui.Text:         fmt.Sprintf("Item %d", index+1),
+		rui.NotTranslate: true,
 	})
 }
 
@@ -91,7 +93,7 @@ func createListViewDemo(session rui.Session) rui.View {
 		rui.Set(view, "listView", rui.ListWrap, number)
 	})
 
-	setItemSize := func(tag string, number int, values []rui.SizeUnit) {
+	setItemSize := func(tag rui.PropertyName, number int, values []rui.SizeUnit) {
 		if number >= 0 && number < len(values) {
 			rui.Set(view, "listView", tag, values[number])
 		}

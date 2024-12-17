@@ -107,7 +107,7 @@ func createAnimationDemo(session rui.Session) rui.View {
 			params[rui.IterationCount] = -1
 		}
 
-		rui.Set(view, "animatedView1", rui.AnimationTag, rui.NewAnimation(params))
+		rui.Set(view, "animatedView1", rui.Animation, rui.NewAnimationProperty(params))
 	})
 
 	rui.Set(view, "animationPause", rui.ClickEvent, func() {

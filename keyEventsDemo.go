@@ -7,10 +7,10 @@ import (
 	"github.com/anoshenko/rui"
 )
 
-func keyEventHandle(view rui.View, event rui.KeyEvent, tag string) {
+func keyEventHandle(view rui.View, event rui.KeyEvent, tag rui.PropertyName) {
 	var buffer strings.Builder
 
-	buffer.WriteString(tag)
+	buffer.WriteString(string(tag))
 	buffer.WriteString(`: TimeStamp = `)
 	buffer.WriteString(strconv.FormatUint(event.TimeStamp, 10))
 	buffer.WriteString(`, Key = "`)

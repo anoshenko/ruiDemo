@@ -34,19 +34,19 @@ func createClipDemo(session rui.Session) rui.View {
 			rui.Set(view, "clipImage", rui.Clip, nil)
 
 		case 1:
-			rui.Set(view, "clipImage", rui.Clip, rui.InsetClip(rui.Percent(20), rui.Percent(10),
+			rui.Set(view, "clipImage", rui.Clip, rui.NewInsetClip(rui.Percent(20), rui.Percent(10),
 				rui.Percent(20), rui.Percent(10), rui.NewRadiusProperty(rui.Params{
 					rui.X: rui.Px(16),
 					rui.Y: rui.Px(32),
 				})))
 		case 2:
-			rui.Set(view, "clipImage", rui.Clip, rui.CircleClip(rui.Percent(50), rui.Percent(45), rui.Percent(45)))
+			rui.Set(view, "clipImage", rui.Clip, rui.NewCircleClip(rui.Percent(50), rui.Percent(45), rui.Percent(45)))
 
 		case 3:
-			rui.Set(view, "clipImage", rui.Clip, rui.EllipseClip(rui.Percent(50), rui.Percent(50), rui.Percent(35), rui.Percent(50)))
+			rui.Set(view, "clipImage", rui.Clip, rui.NewEllipseClip(rui.Percent(50), rui.Percent(50), rui.Percent(35), rui.Percent(50)))
 
 		case 4:
-			rui.Set(view, "clipImage", rui.Clip, rui.PolygonClip([]any{"50%", "2.4%", "34.5%", "33.8%", "0%", "38.8%", "25%", "63.1%", "19.1%", "97.6%", "50%", "81.3%", "80.9%", "97.6%", "75%", "63.1%", "100%", "38.8%", "65.5%", "33.8%"}))
+			rui.Set(view, "clipImage", rui.Clip, rui.NewPolygonClip([]any{"50%", "2.4%", "34.5%", "33.8%", "0%", "38.8%", "25%", "63.1%", "19.1%", "97.6%", "50%", "81.3%", "80.9%", "97.6%", "75%", "63.1%", "100%", "38.8%", "65.5%", "33.8%"}))
 		}
 	})
 

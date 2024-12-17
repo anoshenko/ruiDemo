@@ -100,7 +100,7 @@ func createTableViewDemo(session rui.Session) rui.View {
 		rui.FootHeight: 1,
 	})
 
-	setBorder := func(borderTag string, number int) {
+	setBorder := func(borderTag rui.PropertyName, number int) {
 		switch number {
 		case 1:
 			rui.Set(view, "demoTableView1", borderTag, rui.NewBorder(rui.Params{

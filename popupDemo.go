@@ -138,6 +138,12 @@ func createPopupDemo(session rui.Session) rui.View {
 					},
 				},
 			},
+			rui.ShowDuration: 0.5,
+			rui.ShowOpacity:  0.0,
+			//rui.ShowTransform: rui.NewTransformProperty(rui.Params{
+			//	rui.ScaleX: 0.001,
+			//	rui.ScaleY: 0.001,
+			//}),
 		}
 
 		rui.ShowPopup(popupView, popupParams)

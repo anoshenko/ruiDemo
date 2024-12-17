@@ -36,31 +36,31 @@ GridLayout {
 						}
 					]
 				},
-				"Perspective origin X (pixels)",
+				"Perspective origin X (%)",
 				ListLayout { 
 					margin-bottom = 12px, orientation = horizontal, vertical-align = center,
 					content = [
 						NumberPicker { id = xPerspectiveOriginEditor, type = slider, width = 120px, 
-							min = -1000, max = 1000, step = 10, value = 0 
+							min = 0, max = 100, step = 1, value = 50 
 						},
 						TextView {
-							id = xPerspectiveOriginValue, text = "0px", margin-left = 12px, width = 32px
+							id = xPerspectiveOriginValue, text = "50%", margin-left = 12px, width = 32px
 						}
 					]
 				},
-				"Perspective origin Y (pixels)",
+				"Perspective origin Y (%)",
 				ListLayout { 
 					margin-bottom = 12px, orientation = horizontal, vertical-align = center,
 					content = [
 						NumberPicker { id = yPerspectiveOriginEditor, type = slider, width = 120px, 
-							min = -1000, max = 1000, step = 10, value = 0 
+							min = 0, max = 100, step = 1, value = 50 
 						},
 						TextView {
-							id = yPerspectiveOriginValue, text = "0px", margin-left = 12px, width = 32px
+							id = yPerspectiveOriginValue, text = "50%", margin-left = 12px, width = 32px
 						}
 					]
 				},
-				"Origin X (pixels)",
+				"Transform Origin X (pixels)",
 				ListLayout { 
 					margin-bottom = 12px, orientation = horizontal, vertical-align = center,
 					content = [
@@ -72,7 +72,7 @@ GridLayout {
 						}
 					]
 				},
-				"Origin Y (pixels)",
+				"Transform Origin Y (pixels)",
 				ListLayout { 
 					margin-bottom = 12px, orientation = horizontal, vertical-align = center,
 					content = [
@@ -84,7 +84,7 @@ GridLayout {
 						}
 					]
 				},
-				"Origin Z (pixels)",
+				"Transform Origin Z (pixels)",
 				ListLayout { 
 					margin-bottom = 12px, orientation = horizontal, vertical-align = center,
 					content = [
@@ -269,27 +269,27 @@ func transformDemo(session rui.Session) rui.View {
 	})
 
 	rui.Set(view, "xPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.PerspectiveOriginX, rui.Px(newValue))
-		updateSliderText("xPerspectiveOriginValue", newValue, "px")
+		transformView.Set(rui.PerspectiveOriginX, rui.Percent(newValue))
+		updateSliderText("xPerspectiveOriginValue", newValue, "%")
 	})
 
 	rui.Set(view, "yPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.PerspectiveOriginY, rui.Px(newValue))
-		updateSliderText("yPerspectiveOriginValue", newValue, "px")
+		transformView.Set(rui.PerspectiveOriginY, rui.Percent(newValue))
+		updateSliderText("yPerspectiveOriginValue", newValue, "%")
 	})
 
 	rui.Set(view, "xOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.OriginX, rui.Px(newValue))
+		transformView.Set(rui.TransformOriginX, rui.Px(newValue))
 		updateSliderText("xOriginValue", newValue, "px")
 	})
 
 	rui.Set(view, "yOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.OriginY, rui.Px(newValue))
+		transformView.Set(rui.TransformOriginY, rui.Px(newValue))
 		updateSliderText("yOriginValue", newValue, "px")
 	})
 
 	rui.Set(view, "zOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.OriginZ, rui.Px(newValue))
+		transformView.Set(rui.TransformOriginZ, rui.Px(newValue))
 		updateSliderText("zOriginValue", newValue, "px")
 	})
 
