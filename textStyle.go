@@ -10,7 +10,7 @@ GridLayout {
 			width = 100%, height = 100%, cell-vertical-align = center, cell-horizontal-align = center,
 			content = [
 				TextView {
-					id = textStyleText, padding = 16px, max-width = 80%, 
+					id = textStyleText, padding = 16px, margin=16px, max-width = 80%, 
 					border = _{ style = solid, width = 1px, color = darkgray },
 					text = "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover."
 				}
@@ -49,6 +49,10 @@ GridLayout {
 						DropDownList { row = 14, column = 1, id = textStyleAlign, current = 0, items = ["left", "right", "center", "justify"]},
 						TextView { row = 15, text = "Text wrap" },
 						DropDownList { row = 15, column = 1, id = textStyleWrap, current = 0, items = ["wrap", "nowrap", "balance"]},
+						TextView { row = 17, text = "writing-mode" },
+						DropDownList { row = 17, column = 1, id = textWritingMode, current = 0, items = ["horizontal-top-to-bottom", "horizontal-bottom-to-top", "vertical-right-to-left", "vertical-left-to-right"]},
+						TextView { row = 18, text = "vertical-text-orientation" },
+						DropDownList { row = 18, column = 1, id = textVerticalTextOrientation, current = 0, items = ["mixed-text", "upright-text"]},
 					]
 				}
 			]
@@ -174,6 +178,14 @@ func createTextStyleDemo(session rui.Session) rui.View {
 
 	rui.Set(view, "textStyleWrap", rui.DropDownEvent, func(number int) {
 		rui.Set(view, "textStyleText", rui.TextWrap, number)
+	})
+
+	rui.Set(view, "textWritingMode", rui.DropDownEvent, func(number int) {
+		rui.Set(view, "textStyleText", rui.WritingMode, number)
+	})
+
+	rui.Set(view, "textVerticalTextOrientation", rui.DropDownEvent, func(number int) {
+		rui.Set(view, "textStyleText", rui.VerticalTextOrientation, number)
 	})
 
 	return view
