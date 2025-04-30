@@ -1,6 +1,6 @@
 module github.com/anoshenko/ruiDemo
 
-go 1.18
+go 1.24
 
 require github.com/anoshenko/rui v0.18.0
 

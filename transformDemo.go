@@ -269,12 +269,12 @@ func transformDemo(session rui.Session) rui.View {
 	})
 
 	rui.Set(view, "xPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.PerspectiveOriginX, rui.Percent(newValue))
+		transformView.Parent().Set(rui.PerspectiveOriginX, rui.Percent(newValue))
 		updateSliderText("xPerspectiveOriginValue", newValue, "%")
 	})
 
 	rui.Set(view, "yPerspectiveOriginEditor", rui.NumberChangedEvent, func(_ rui.NumberPicker, newValue float64) {
-		transformView.Set(rui.PerspectiveOriginY, rui.Percent(newValue))
+		transformView.Parent().Set(rui.PerspectiveOriginY, rui.Percent(newValue))
 		updateSliderText("yPerspectiveOriginValue", newValue, "%")
 	})
 
