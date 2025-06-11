@@ -282,7 +282,7 @@ func transformCanvasDemo(canvas rui.Canvas) {
 		}
 		canvas.SetTextAlign(rui.CenterAlign)
 		canvas.SetTextBaseline(rui.BottomBaseline)
-		for i := 0; i < nx; i++ {
+		for i := range nx {
 			x := x0 + float64(i*20)
 			canvas.DrawLine(x, y0, x, y1)
 			canvas.FillText(x, y0-4, strconv.Itoa(i))
@@ -290,7 +290,7 @@ func transformCanvasDemo(canvas rui.Canvas) {
 
 		canvas.SetTextAlign(rui.RightAlign)
 		canvas.SetTextBaseline(rui.MiddleBaseline)
-		for i := 0; i < ny; i++ {
+		for i := range ny {
 			y := y0 + float64(i*20)
 			canvas.DrawLine(x0, y, x1, y)
 			canvas.FillText(x0-4, y, strconv.Itoa(i))

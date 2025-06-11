@@ -98,6 +98,7 @@ func createDemo(_ rui.Session) rui.SessionContent {
 		{"Mouse events", createMouseEventsDemo, nil},
 		{"Pointer events", createPointerEventsDemo, nil},
 		{"Touch events", createTouchEventsDemo, nil},
+		{"Drag and drop", createDragAndDropDemo, nil},
 	}
 
 	return sessionContent
