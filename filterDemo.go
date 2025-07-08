@@ -155,7 +155,7 @@ func createFilterDemo(session rui.Session) rui.View {
 
 	for _, tag := range []string{"shadowXSlider", "shadowYSlider", "shadowBlurSlider"} {
 		rui.Set(view, tag, rui.NumberChangedEvent, func(picker rui.NumberPicker, value float64) {
-			tag := strings.Replace(picker.ID(), "Slider", "Value", -1)
+			tag := strings.ReplaceAll(picker.ID(), "Slider", "Value")
 			text := rui.GetText(view, tag)
 			rui.Set(view, tag, rui.Text, fmt.Sprintf("%s%gpx", text[:2], value))
 			updateShadow()

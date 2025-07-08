@@ -90,64 +90,127 @@ func createPopupDemo(session rui.Session) rui.View {
 	})
 
 	rui.Set(view, "popupShowEditor", rui.ClickEvent, func() {
-		popupView := rui.NewGridLayout(session, rui.Params{
-			rui.Padding:    rui.Px(12),
-			rui.CellHeight: []rui.SizeUnit{rui.AutoSize(), rui.AutoSize(), rui.AutoSize(), rui.Fr(1)},
-			rui.Gap:        rui.Px(4),
-			rui.Content: []any{
-				"Title",
-				rui.NewEditView(session, rui.Params{
-					rui.ID:           "titleText",
-					rui.EditViewType: rui.SingleLineText,
-					rui.MaxLength:    80,
-				}),
-				"Text",
-				rui.NewEditView(session, rui.Params{
-					rui.ID:           "content",
-					rui.EditViewType: rui.MultiLineText,
-				}),
-			},
-		})
-
-		popupParams := rui.Params{
-			rui.CloseButton:  true,
-			rui.OutsideClose: false,
-			rui.MinWidth:     rui.Px(300),
-			rui.MinHeight:    rui.Px(300),
-			rui.Resize:       rui.BothResize,
-			rui.Title:        "Enter text",
-			rui.Buttons: []rui.PopupButton{
-				{
-					Title: "Ok",
-					Type:  rui.NormalButton,
-					OnClick: func(popup rui.Popup) {
-						popup.Dismiss()
-						title := rui.GetText(popupView, "titleText")
-						text := strings.ReplaceAll(rui.GetText(popupView, "content"), "\n", "<br>")
-						if title != "" {
-							text = "<h3>" + title + "</h3>" + text
-						}
-						rui.Set(view, "popupShowEditorResult", rui.Text, text)
-					},
-				},
-				{
-					Title: "Cancel",
-					Type:  rui.CancelButton,
-					OnClick: func(popup rui.Popup) {
-						popup.Dismiss()
-					},
-				},
-			},
-			rui.ShowDuration: 0.5,
-			rui.ShowOpacity:  0.0,
-			//rui.ShowTransform: rui.NewTransformProperty(rui.Params{
-			//	rui.ScaleX: 0.001,
-			//	rui.ScaleY: 0.001,
-			//}),
-		}
-
-		rui.ShowPopup(popupView, popupParams)
+		showPopupEditor(view)
 	})
 
 	return view
+}
+
+/*
+func showPopupEditor1(rootView rui.View) {
+	session := rootView.Session()
+
+	popupView := rui.NewGridLayout(session, rui.Params{
+		rui.Padding:    rui.Px(12),
+		rui.CellHeight: []rui.SizeUnit{rui.AutoSize(), rui.AutoSize(), rui.AutoSize(), rui.Fr(1)},
+		rui.Gap:        rui.Px(4),
+		rui.Content: []any{
+			"Title",
+			rui.NewEditView(session, rui.Params{
+				rui.ID:           "titleText",
+				rui.EditViewType: rui.SingleLineText,
+				rui.MaxLength:    80,
+			}),
+			"Text",
+			rui.NewEditView(session, rui.Params{
+				rui.ID:           "content",
+				rui.EditViewType: rui.MultiLineText,
+			}),
+		},
+	})
+
+	popupParams := rui.Params{
+		rui.CloseButton:  true,
+		rui.OutsideClose: false,
+		rui.MinWidth:     rui.Px(300),
+		rui.MinHeight:    rui.Px(300),
+		rui.Resize:       rui.BothResize,
+		rui.Title:        "Enter text",
+		rui.Buttons: []rui.PopupButton{
+			{
+				Title: "Ok",
+				Type:  rui.NormalButton,
+				OnClick: func(popup rui.Popup) {
+					popup.Dismiss()
+					title := rui.GetText(popupView, "titleText")
+					text := strings.ReplaceAll(rui.GetText(popupView, "content"), "\n", "<br>")
+					if title != "" {
+						text = "<h3>" + title + "</h3>" + text
+					}
+					rui.Set(rootView, "popupShowEditorResult", rui.Text, text)
+				},
+			},
+			{
+				Title: "Cancel",
+				Type:  rui.CancelButton,
+				OnClick: func(popup rui.Popup) {
+					popup.Dismiss()
+				},
+			},
+		},
+		rui.ShowDuration: 0.5,
+		rui.ShowOpacity:  0.0,
+		//rui.ShowTransform: rui.NewTransformProperty(rui.Params{
+		//	rui.ScaleX: 0.001,
+		//	rui.ScaleY: 0.001,
+		//}),
+	}
+
+	rui.ShowPopup(popupView, popupParams)
+}
+*/
+
+const popupEditorText = `
+Popup {
+	min-width = 600px, min-height = 400px, resize = both,
+	close-button = true, "outside-close" = false, 
+	title = "Enter text", 
+	content = GridLayout {
+		width = 100%, height = 100%,
+		padding = 12px, gap = 4px, cell-height = [auto, auto, auto, 1fr],
+		content = [
+			"Title",
+			EditView {
+				id = titleText, edit-view-type = text, max-length = 80,
+			},
+			"Text",
+			EditView {
+				id = content, edit-view-type = multiline,
+			},
+		]
+	},
+	buttons = [
+		{ title = OK, click = ClickOK },
+		{ title = Cancel, type = cancel },
+	],
+	show-duration = 0.5, show-opacity = 0,
+	show-transform = _{ scale-x = 0.001, scale-y = 0.001 },
+}
+`
+
+type popupEditor struct {
+	popup    rui.Popup
+	rootView rui.View
+}
+
+func showPopupEditor(rootView rui.View) {
+	data := new(popupEditor)
+	data.rootView = rootView
+	data.popup = rui.CreatePopupFromText(rootView.Session(), popupEditorText, data)
+	//data.popup = rui.CreatePopupFromResources(rootView.Session(), "popupEditor", data)
+	if data.popup != nil {
+		data.popup.Show()
+	}
+}
+
+func (data *popupEditor) ClickOK() {
+	data.popup.Dismiss()
+	popupView := data.popup.View()
+
+	title := rui.GetText(popupView, "titleText")
+	text := strings.ReplaceAll(rui.GetText(popupView, "content"), "\n", "<br>")
+	if title != "" {
+		text = "<h3>" + title + "</h3>" + text
+	}
+	rui.Set(data.rootView, "popupShowEditorResult", rui.Text, text)
 }

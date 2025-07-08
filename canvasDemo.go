@@ -13,17 +13,62 @@ GridLayout {
 	width = 100%, height = 100%, cell-height = "auto, 1fr",
 	content = [
 		DropDownList {
-			id = canvasType, current = 0, margin = 8px,
+			id = canvasType, current = 0, margin = 8px, drop-down-event = CanvasType,
 			items = ["Image", "Rectangles & ellipse", "Text style", "Text align", "Line style", "Transformations"]
 		},
 		CanvasView {
-			id = canvas, row = 1, width = 100%, height = 100%,
+			id = canvas, row = 1, width = 100%, height = 100%, draw-function = ImageDraw,
 		}
 	]
 }
 `
 
-var sampleImage rui.Image
+type canvasDemo struct {
+	view  rui.View
+	image rui.Image
+}
+
+func createCanvasDemo(session rui.Session) rui.View {
+	return rui.CreateViewFromText(session, canvasDemoText, new(canvasDemo))
+}
+
+func (demo *canvasDemo) OnCreate(view rui.View) {
+	demo.view = view
+}
+
+func (demo *canvasDemo) CanvasType(number int) {
+	drawFuncs := []func(rui.Canvas){
+		demo.ImageDraw,
+		rectangleCanvasDemo,
+		textCanvasDemo,
+		textAlignCanvasDemo,
+		lineStyleCanvasDemo,
+		transformCanvasDemo,
+	}
+
+	if number >= 0 && number < len(drawFuncs) {
+		rui.Set(demo.view, "canvas", rui.DrawFunction, drawFuncs[number])
+	}
+}
+
+func (demo *canvasDemo) ImageDraw(canvas rui.Canvas) {
+	if demo.image != nil {
+		canvas.DrawImage(50, 20, demo.image)
+	} else {
+		demo.image = rui.LoadImage("tile00.svg", demo.imageLoaded, demo.view.Session())
+	}
+}
+
+func (demo *canvasDemo) imageLoaded(img rui.Image) {
+	switch img.LoadingStatus() {
+	case rui.ImageReady:
+		rui.RedrawCanvasView(demo.view, "canvas")
+
+	case rui.ImageLoadingError:
+		demo.image = nil
+		rui.ShowMessage("Image loading error", img.LoadingError(), demo.view.Session())
+	}
+}
 
 func rectangleCanvasDemo(canvas rui.Canvas) {
 	width := canvas.Width()
@@ -326,45 +371,4 @@ func transformCanvasDemo(canvas rui.Canvas) {
 	//canvas.SetTranslation(canvas.Width()/2, canvas.Height()/2)
 	canvas.SetTransformation(0.8, 1.2, 0.2, 0.4, canvas.Width()/(2*0.8)-canvas.Width()/8, canvas.Height()/(2*1.2)-canvas.Height()/16)
 	drawFigure()
-}
-
-var image rui.Image
-
-func imageCanvasDemo(canvas rui.Canvas) {
-	if image != nil {
-		canvas.DrawImage(50, 20, image)
-	} else {
-		image = rui.LoadImage("tile00.svg", func(img rui.Image) {
-			if img.LoadingStatus() == rui.ImageReady {
-				canvas.View().Redraw()
-			}
-		}, canvas.View().Session())
-	}
-}
-
-func createCanvasDemo(session rui.Session) rui.View {
-	view := rui.CreateViewFromText(session, canvasDemoText)
-	if view == nil {
-		return nil
-	}
-
-	rui.Set(view, "canvas", rui.DrawFunction, imageCanvasDemo)
-
-	rui.Set(view, "canvasType", rui.DropDownEvent, func(_ rui.DropDownList, number int) {
-		drawFuncs := []func(rui.Canvas){
-			imageCanvasDemo,
-			rectangleCanvasDemo,
-			textCanvasDemo,
-			textAlignCanvasDemo,
-			lineStyleCanvasDemo,
-			transformCanvasDemo,
-		}
-		if number >= 0 && number < len(drawFuncs) {
-			rui.Set(view, "canvas", rui.DrawFunction, drawFuncs[number])
-		}
-	})
-
-	sampleImage = rui.LoadImage("image_sample.png", nil, session)
-
-	return view
 }

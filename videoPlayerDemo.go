@@ -14,20 +14,27 @@ GridLayout {
 			row = 0, orientation = start-to-end, padding = 4px,
 			content = [
 				Checkbox { 
-					id = showVideoPlayerControls, content = "Controls"
+					id = showVideoPlayerControls, content = "Controls", 
+					checkbox-event = ShowControls,
 				},
 				Checkbox { 
-					id = showVideoPlayerLoop, content = "Loop"
+					id = showVideoPlayerLoop, content = "Loop", checkbox-event = Loop,
 				},
 				Checkbox { 
-					id = showVideoPlayerMuted, content = "Muted"
+					id = showVideoPlayerMuted, content = "Muted", checkbox-event = Muted,
 				},
 			],
 		},
 		GridLayout {
 			row = 1, id = videoPlayerContainer,
+			resize-event = ContainerResize,
 			content = VideoPlayer {
 				id = videoPlayer, src = testVideo.mp4, video-width = 320,
+				play-event = PlayEvent, pause-event = PauseEvent,
+				loaded-data-event = LoadedDataEvent,
+				time-update-event = TimeUpdateEvent,
+				player-error-event = PlayerError,
+				volume-changed-event = VolumeChanged,
 			},
 		},
 		ListLayout {
@@ -37,7 +44,8 @@ GridLayout {
 					id = videoPlayerSlider, width = 200px, type = slider
 				}
 				Button {
-					id = videoPlayerPlay, content = "Play", margin-left = 16px
+					id = videoPlayerPlay, content = "Play", margin-left = 16px, 
+					click-event = PlayClick,
 				}
 			]
 		},
@@ -50,103 +58,110 @@ GridLayout {
 	]
 }`
 
-var videoPlayerPause = true
+type videoPlayerDemo struct {
+	view  rui.View
+	pause bool
+}
 
 func createVideoPlayerDemo(session rui.Session) rui.View {
-	view := rui.CreateViewFromText(session, videoPlayerDemoText)
-	if view == nil {
-		return nil
-	}
+	return rui.CreateViewFromText(session, videoPlayerDemoText, new(videoPlayerDemo))
+}
 
-	createListener := func(event rui.PropertyName) func() {
-		return func() {
-			rui.AppendEditText(view, "videoPlayerEventsLog", string(event)+"\n")
-			rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		}
-	}
-	createListener2 := func(event rui.PropertyName) func(value float64) {
-		return func(value float64) {
-			rui.AppendEditText(view, "videoPlayerEventsLog", fmt.Sprintf("%s: %g\n", string(event), value))
-			rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		}
-	}
-
-	rui.Set(view, "videoPlayerContainer", rui.ResizeEvent, func(frame rui.Frame) {
-		rui.Set(view, "videoPlayer", rui.VideoWidth, frame.Width)
-		rui.Set(view, "videoPlayer", rui.VideoHeight, frame.Height)
-	})
-
-	rui.Set(view, "showVideoPlayerControls", rui.CheckboxChangedEvent, func(state bool) {
-		rui.Set(view, "videoPlayer", rui.Controls, state)
-	})
-
-	rui.Set(view, "showVideoPlayerLoop", rui.CheckboxChangedEvent, func(state bool) {
-		rui.Set(view, "videoPlayer", rui.Loop, state)
-	})
-
-	rui.Set(view, "showVideoPlayerMuted", rui.CheckboxChangedEvent, func(state bool) {
-		rui.Set(view, "videoPlayer", rui.Muted, state)
-	})
+func (demo *videoPlayerDemo) OnCreate(view rui.View) {
+	demo.view = view
+	demo.pause = true
 
 	for _, event := range []rui.PropertyName{rui.AbortEvent, rui.CanPlayEvent, rui.CanPlayThroughEvent,
 		rui.CompleteEvent, rui.EmptiedEvent, rui.EndedEvent, rui.LoadStartEvent,
 		rui.LoadedMetadataEvent, rui.PlayingEvent, rui.SeekedEvent, rui.SeekingEvent,
 		rui.StalledEvent, rui.SuspendEvent, rui.WaitingEvent} {
 
-		rui.Set(view, "videoPlayer", event, createListener(event))
+		rui.Set(view, "videoPlayer", event, func() {
+			demo.writeToLog(string(event))
+		})
 	}
 
-	for _, event := range []rui.PropertyName{rui.DurationChangedEvent, rui.RateChangedEvent, rui.VolumeChangedEvent} {
-
-		rui.Set(view, "videoPlayer", event, createListener2(event))
+	for _, event := range []rui.PropertyName{rui.DurationChangedEvent, rui.RateChangedEvent} {
+		rui.Set(view, "videoPlayer", event, func(value float64) {
+			demo.writeToLog(fmt.Sprintf("%s: %g", string(event), value))
+		})
 	}
-
-	rui.Set(view, "videoPlayer", rui.PlayEvent, func() {
-		rui.AppendEditText(view, "videoPlayerEventsLog", "play-event\n")
-		rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		rui.Set(view, "videoPlayerPlay", rui.Content, "Pause")
-		videoPlayerPause = false
-	})
-
-	rui.Set(view, "videoPlayer", rui.PauseEvent, func() {
-		rui.AppendEditText(view, "videoPlayerEventsLog", "pause-event\n")
-		rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		rui.Set(view, "videoPlayerPlay", rui.Content, "Play")
-		videoPlayerPause = true
-	})
-
-	rui.Set(view, "videoPlayer", rui.LoadedDataEvent, func() {
-		rui.AppendEditText(view, "videoPlayerEventsLog", "loaded-data-event\n")
-		rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		rui.Set(view, "videoPlayerSlider", rui.Max, rui.MediaPlayerDuration(view, "videoPlayer"))
-	})
-
-	rui.Set(view, "videoPlayer", rui.TimeUpdateEvent, func(time float64) {
-		rui.AppendEditText(view, "videoPlayerEventsLog", fmt.Sprintf("time-update-event %gs\n", time))
-		rui.ScrollViewToEnd(view, "videoPlayerEventsLog")
-		rui.Set(view, "videoPlayerSlider", rui.Value, time)
-	})
-
-	rui.Set(view, "vodeoPlayer", rui.PlayerErrorEvent, func(code int, message string) {
-		rui.AppendEditText(view, "vodeoPlayerEventsLog", fmt.Sprintf("player-error-event: code = %d, message = '%s'\n", code, message))
-		rui.ScrollViewToEnd(view, "vodeoPlayerEventsLog")
-	})
-
-	rui.Set(view, "videoPlayerPlay", rui.ClickEvent, func() {
-		if videoPlayerPause {
-			rui.MediaPlayerPlay(view, "videoPlayer")
-		} else {
-			rui.MediaPlayerPause(view, "videoPlayer")
-		}
-	})
 
 	rui.Set(view, "videoPlayerSlider", rui.NumberChangedEvent, func(value float64) {
-		if videoPlayerPause {
+		if demo.pause {
 			rui.SetMediaPlayerCurrentTime(view, "videoPlayer", value)
 		}
 	})
+}
 
-	return view
+func (demo *videoPlayerDemo) writeToLog(text string) {
+	rui.AppendEditText(demo.view, "videoPlayerEventsLog", text+"\n")
+	rui.ScrollViewToEnd(demo.view, "videoPlayerEventsLog")
+}
+
+func (demo *videoPlayerDemo) ContainerResize(frame rui.Frame) {
+	rui.Set(demo.view, "videoPlayer", rui.VideoWidth, frame.Width)
+	rui.Set(demo.view, "videoPlayer", rui.VideoHeight, frame.Height)
+}
+
+func (demo *videoPlayerDemo) ShowControls(state bool) {
+	rui.Set(demo.view, "videoPlayer", rui.Controls, state)
+}
+
+func (demo *videoPlayerDemo) Loop(state bool) {
+	rui.Set(demo.view, "videoPlayer", rui.Loop, state)
+}
+
+func (demo *videoPlayerDemo) Muted(state bool) {
+	rui.Set(demo.view, "videoPlayer", rui.Muted, state)
+}
+
+func (demo *videoPlayerDemo) PlayClick() {
+	if demo.pause {
+		rui.MediaPlayerPlay(demo.view, "videoPlayer")
+	} else {
+		rui.MediaPlayerPause(demo.view, "videoPlayer")
+	}
+}
+
+func (demo *videoPlayerDemo) PlayEvent() {
+	demo.pause = false
+	demo.writeToLog(string(rui.PlayEvent))
+	rui.Set(demo.view, "videoPlayerPlay", rui.Content, "Pause")
+}
+
+func (demo *videoPlayerDemo) PauseEvent() {
+	demo.pause = true
+	demo.writeToLog(string(rui.PauseEvent))
+	rui.Set(demo.view, "videoPlayerPlay", rui.Content, "Play")
+}
+
+func (demo *videoPlayerDemo) LoadedDataEvent() {
+	demo.writeToLog("loaded-data-event")
+	rui.Set(demo.view, "videoPlayerSlider", rui.Max, rui.MediaPlayerDuration(demo.view, "videoPlayer"))
+}
+
+func (demo *videoPlayerDemo) TimeUpdateEvent(time float64) {
+	demo.writeToLog(fmt.Sprintf("time-update-event %gs", time))
+	rui.Set(demo.view, "videoPlayerSlider", rui.Value, time)
+}
+
+func (demo *videoPlayerDemo) PlayerError(code int, message string) {
+	demo.writeToLog(fmt.Sprintf(`player-error-event: code = %d, message = "%s"`, code, message))
+}
+
+func (demo *videoPlayerDemo) VolumeChanged(volume float64) {
+	demo.writeToLog(fmt.Sprintf("%s: %g", string(rui.VolumeChangedEvent), volume))
+	mutedFlag := rui.IsCheckboxChecked(demo.view, "showVideoPlayerMuted")
+	if volume == 0 {
+		if !mutedFlag {
+			rui.Set(demo.view, "showVideoPlayerMuted", rui.Checked, true)
+		}
+	} else {
+		if mutedFlag {
+			rui.Set(demo.view, "showVideoPlayerMuted", rui.Checked, false)
+		}
+	}
 }
 
 //MAH00054.MP4
